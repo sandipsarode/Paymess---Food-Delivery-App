@@ -2,6 +2,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
+  // Specify the required fonts in the app
   useFonts({
     roboto: require("./../assets/fonts/Roboto-Medium.ttf"),
     pacifico: require("./../assets/fonts/Pacifico-Regular.ttf"),
@@ -17,7 +18,15 @@ export default function RootLayout() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="index" />
+      {/* <Stack.Screen
+        name="index"
+        options={{
+          headerShown: false,
+        }}
+      /> */}
+
+      {/* Rendering the different tabs of the app */}
+      <Stack.Screen name="(tabs)" />
     </Stack>
   );
 }

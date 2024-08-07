@@ -57,6 +57,7 @@ export default function SignIn() {
 
                 {/* Sign In Button */}
                 <TouchableOpacity
+                    onPress={() => router.navigate('./explore')}
                     style={[styles.btn, {
                         padding: 10,
                         backgroundColor: Colors.VALENTINE_RED,
@@ -92,7 +93,7 @@ export default function SignIn() {
 
                 {/* Sign Up Button */}
                 <TouchableOpacity
-                    onPress={() => router.replace('/auth/sign-up')}
+                    onPress={() => router.push('/auth/sign-up')}
                     style={[styles.btn, {
                         padding: 8,
                         borderColor: Colors.VALENTINE_RED,
