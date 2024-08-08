@@ -7,6 +7,7 @@ export default function RootLayout() {
     roboto: require("./../assets/fonts/Roboto-Medium.ttf"),
     pacifico: require("./../assets/fonts/Pacifico-Regular.ttf"),
     openSans: require("./../assets/fonts/OpenSans-Regular.ttf"),
+    "openSans-light": require("./../assets/fonts/OpenSans-Light.ttf"),
     "openSans-semiBold": require("./../assets/fonts/OpenSans-SemiBold.ttf"),
     "openSans-bold": require("./../assets/fonts/OpenSans-Bold.ttf"),
     "openSans-extraBold": require("./../assets/fonts/OpenSans-ExtraBold.ttf"),

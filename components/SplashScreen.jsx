@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 21,
-    fontFamily: "roboto",
+    // fontFamily: "roboto",
     marginBottom: -100,
   },
 });

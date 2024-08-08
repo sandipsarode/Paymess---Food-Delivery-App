@@ -4,6 +4,8 @@ import { Text, View } from "react-native";
 
 import SignIn from "./auth/sign-in/index";
 
+import Wallet from "./(tabs)/wallet";
+
 export default function Index() {
   // Display the Splash Screen based on condition
   const [isShowSplash, setIsShowSplash] = useState(true);
@@ -22,6 +24,7 @@ export default function Index() {
     >
       {/* Show Splash Screen */}
       {isShowSplash ? <SplashScreen /> : <SignIn />}
+      {/* <Wallet /> */}
     </View>
   );
 }

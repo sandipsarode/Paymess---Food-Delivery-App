@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Colors } from '@/constants/Colors'
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 
 export default function SignIn() {
     const router = useRouter();
@@ -32,7 +32,7 @@ export default function SignIn() {
                     fontFamily: 'openSans-bold'
                 }}>Delightful Dining and Delivery</Text>
 
-                {/* Log in or Sign Up title */}
+                {/* Log in or Sign Up Divider */}
                 <View style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -57,7 +57,7 @@ export default function SignIn() {
 
                 {/* Sign In Button */}
                 <TouchableOpacity
-                    onPress={() => router.navigate('./explore')}
+                    onPress={() => router.navigate('/explore')}
                     style={[styles.btn, {
                         padding: 10,
                         backgroundColor: Colors.VALENTINE_RED,
