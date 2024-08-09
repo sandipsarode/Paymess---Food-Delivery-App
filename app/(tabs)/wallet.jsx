@@ -280,16 +280,35 @@ export default function Wallet() {
         <View style={styles.line} />
       </View>
 
-      {/* Transaction Container */}
-      <View style={styles.container}>
+      {/* Card according to transaction */}
+      {/* <View style={[styles.container, { paddingHorizontal: 0 }]}>
         <View>
-          <Text>June 12, 2024</Text>
-          <View>
+          <Text
+            style={{
+              fontFamily: "openSans",
+              paddingHorizontal: 15,
+              paddingBottom: 8,
+            }}
+          >
+            June 12, 2024
+          </Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#fff",
+              padding: 15,
+            }}
+          >
             <View
               style={{
-                width: 40,
+                width: 50,
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: Colors.BGCOLOR,
+                borderRadius: 50,
                 elevation: 5,
-                backgroundColor: "#fff",
               }}
             >
               <Fontisto name="wallet" size={25} color={Colors.VALENTINE_RED} />
@@ -298,7 +317,7 @@ export default function Wallet() {
             <View></View>
           </View>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }
