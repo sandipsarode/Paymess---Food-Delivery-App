@@ -1,5 +1,12 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
 // Importing Icons from expo
@@ -9,12 +16,27 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
+import { useRouter } from "expo-router";
+
+import Coupon from "../../components/wallet/Coupon";
 
 export default function Wallet() {
+  const router = useRouter();
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleApply = () => setModalVisible(true);
+  const handleClose = () => setModalVisible(false);
+
+  const AddAmount = ({ amount }) => (
+    <View style={styles.addAmount}>
+      <Text style={styles.amountText}>{amount}</Text>
+    </View>
+  );
+
   return (
-    <View
+    <ScrollView
       style={{
-        height: "100%",
         backgroundColor: "#fff",
       }}
     >
@@ -54,12 +76,17 @@ export default function Wallet() {
                 Hanuman Nagar, Sharda Colony, Gondia
               </Text>
             </View>
-            <Ionicons
-              name="person-circle-outline"
-              size={35}
-              color={Colors.VALENTINE_RED}
+
+            <TouchableOpacity
+              onPress={() => router.push("/profile/profile")}
               style={{ marginLeft: "auto" }}
-            />
+            >
+              <Ionicons
+                name="person-circle-outline"
+                size={35}
+                color={Colors.VALENTINE_RED}
+              />
+            </TouchableOpacity>
           </View>
 
           {/* Header Title */}
@@ -94,7 +121,7 @@ export default function Wallet() {
         <View style={styles.lineDvd} />
 
         {/* Current Coupon */}
-        <View style={[styles.alignment, { justifyContent: "center" }]}>
+        <View style={styles.alignment}>
           {/* Coupon discount Icon */}
           <MaterialCommunityIcons
             name="sale"
@@ -126,25 +153,33 @@ export default function Wallet() {
           </View>
 
           {/* Apply Button */}
-          <Text
+          <TouchableOpacity
+            onPress={handleApply}
             style={{
               height: 26,
               marginLeft: "auto",
-              fontSize: 12,
-              color: "#fff",
-              fontFamily: "openSans-semiBold",
               backgroundColor: Colors.VALENTINE_RED,
               paddingTop: 5,
               paddingHorizontal: 20,
               borderRadius: 15,
             }}
           >
-            APPLY
-          </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: "#fff",
+                fontFamily: "openSans-semiBold",
+              }}
+            >
+              APPLY
+            </Text>
+          </TouchableOpacity>
+          <Coupon visible={modalVisible} onClose={handleClose} />
         </View>
 
         {/* View all Coupons Button */}
-        <View
+        <TouchableOpacity
+          onPress={() => router.push("/wallet-screens/coupon-voucher")}
           style={[
             styles.alignment,
             styles.btn,
@@ -155,7 +190,7 @@ export default function Wallet() {
         >
           <Ionicons name="card" size={25} color={Colors.VALENTINE_RED} />
           <Text style={styles.contentHead}>View all Voucher Coupons</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Available Balance Section */}
@@ -198,80 +233,37 @@ export default function Wallet() {
         <View
           style={[
             styles.alignment,
-            {
-              marginTop: 10,
-              justifyContent: "space-evenly",
-            },
+            { justifyContent: "space-evenly", marginTop: 14 },
           ]}
         >
-          <View style={styles.addAmount}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "openSans-light",
-              }}
-            >
-              + 100
-            </Text>
-          </View>
-          <View style={styles.addAmount}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "openSans-light",
-              }}
-            >
-              + 200
-            </Text>
-          </View>
-          <View style={styles.addAmount}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "openSans-light",
-              }}
-            >
-              + 500
-            </Text>
-          </View>
-          <View style={styles.addAmount}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "openSans-light",
-              }}
-            >
-              + 1000
-            </Text>
-          </View>
+          {["+ 100", "+ 200", "+ 500", "+ 1000"].map((amount, index) => (
+            <TouchableOpacity>
+              <AddAmount key={index} amount={amount} />
+            </TouchableOpacity>
+          ))}
         </View>
 
         {/* Add Money Button */}
-        <View
+        <TouchableOpacity
           style={[
             styles.alignment,
             styles.btn,
             {
               backgroundColor: Colors.SEA,
-              paddingVertical: 12,
             },
           ]}
         >
-          <Text style={[styles.contentHead, { fontSize: 20, color: "#fff" }]}>
-            Add Money
-          </Text>
-        </View>
+          <Text style={[styles.contentHead, { color: "#fff" }]}>Add Money</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Transaction Divider */}
       <View
         style={{
-          width: "90%",
-          marginHorizontal: "auto",
-          display: "flex",
           flexDirection: "row",
-          justifyContent: "space-evenly",
           alignItems: "center",
+          width: "90%",
+          margin: "auto",
           marginTop: 20,
         }}
       >
@@ -281,25 +273,37 @@ export default function Wallet() {
       </View>
 
       {/* Card according to transaction */}
-      {/* <View style={[styles.container, { paddingHorizontal: 0 }]}>
+      <View
+        style={[
+          styles.container,
+          { paddingHorizontal: 0, paddingVertical: 20, marginBottom: 80 },
+        ]}
+      >
+        {/* Paid Transaction */}
         <View>
           <Text
             style={{
               fontFamily: "openSans",
               paddingHorizontal: 15,
-              paddingBottom: 8,
+              paddingVertical: 10,
             }}
           >
             June 12, 2024
           </Text>
-          <View
+
+          {/* Paid Transaction Block */}
+          <TouchableOpacity
+            onPress={() => router.push("/wallet-screens/paid-amount")}
             style={{
               display: "flex",
               flexDirection: "row",
               backgroundColor: "#fff",
-              padding: 15,
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              alignItems: "center",
             }}
           >
+            {/* Logo of Paid Transaction */}
             <View
               style={{
                 width: 50,
@@ -313,12 +317,128 @@ export default function Wallet() {
             >
               <Fontisto name="wallet" size={25} color={Colors.VALENTINE_RED} />
             </View>
-            <View></View>
-            <View></View>
+
+            {/* Description of Paid Transaction */}
+            <View
+              style={{
+                marginLeft: 15,
+              }}
+            >
+              <Text style={styles.transTxt}>Paid</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: "openSans-light",
+                }}
+              >
+                19.07
+              </Text>
+            </View>
+
+            {/* Amount Detail of Paid transaction */}
+            <View
+              style={{
+                marginLeft: "auto",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={[styles.transTxt, { color: Colors.VALENTINE_RED }]}>
+                - ₹ 300
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10.5,
+                  fontFamily: "openSans-light",
+                }}
+              >
+                Closing Balance: ₹227
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        {/* Top Up */}
+        <View>
+          <Text
+            style={{
+              fontFamily: "openSans",
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+            }}
+          >
+            June 02, 2024
+          </Text>
+
+          {/* TopUp Transaction Block */}
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#fff",
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              alignItems: "center",
+            }}
+          >
+            {/* Logo of TopUp Transaction */}
+            <View
+              style={{
+                width: 50,
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: Colors.BGCOLOR,
+                borderRadius: 50,
+                elevation: 5,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="credit-card-plus"
+                size={28}
+                color={Colors.KELLY_GREEN}
+              />
+            </View>
+
+            {/* Description of TopUp Transaction */}
+            <View
+              style={{
+                marginLeft: 15,
+              }}
+            >
+              <Text style={styles.transTxt}>Top Up</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: "openSans-light",
+                }}
+              >
+                09.57
+              </Text>
+            </View>
+
+            {/* Amount Detail of TopUp transaction */}
+            <View
+              style={{
+                marginLeft: "auto",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={[styles.transTxt, { color: Colors.KELLY_GREEN }]}>
+                + ₹ 300
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10.5,
+                  fontFamily: "openSans-light",
+                }}
+              >
+                Closing Balance: ₹527
+              </Text>
+            </View>
           </View>
         </View>
-      </View> */}
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -327,18 +447,19 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     marginHorizontal: "auto",
-    marginTop: 20,
+    marginTop: 25,
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: Colors.BGCOLOR,
     borderRadius: 10,
-    elevation: 8,
+    elevation: 5,
     shadowOffset: { width: 0.5, height: 0.5 },
     shadowOpacity: 0.3,
   },
   alignment: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
   },
   contentHead: {
     fontSize: 16,
@@ -358,7 +479,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    padding: 8,
+    paddingVertical: 8,
     marginTop: 20,
     marginBottom: 5,
     borderRadius: 5,
@@ -368,12 +489,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 15,
     backgroundColor: "#fff",
-    elevation: 5,
+    elevation: 2,
     width: "auto",
   },
   line: {
-    width: 130,
-    height: 1,
+    flex: 1,
+    height: 1.5,
     backgroundColor: Colors.BOULDER,
   },
   txt: {
@@ -381,5 +502,13 @@ const styles = StyleSheet.create({
     color: Colors.BOULDER,
     fontSize: 12,
     fontFamily: "openSans-bold",
+  },
+  transTxt: {
+    fontSize: 18,
+    fontFamily: "openSans-semiBold",
+  },
+  amountText: {
+    fontSize: 16,
+    fontFamily: "openSans-light",
   },
 });

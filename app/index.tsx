@@ -5,6 +5,8 @@ import { Text, View } from "react-native";
 import SignIn from "./auth/sign-in/index";
 
 import Wallet from "./(tabs)/wallet";
+import Coupon from "../components/wallet/Coupon";
+// import CouponVoucher from "../components/wallet/CouponVoucher";
 
 export default function Index() {
   // Display the Splash Screen based on condition
@@ -23,8 +25,10 @@ export default function Index() {
       }}
     >
       {/* Show Splash Screen */}
-      {isShowSplash ? <SplashScreen /> : <SignIn />}
-      {/* <Wallet /> */}
+      {/* {isShowSplash ? <SplashScreen /> : <SignIn />} */}
+      <Wallet />
+      {/* <Coupon /> */}
+      {/* <CouponVoucher /> */}
     </View>
   );
 }

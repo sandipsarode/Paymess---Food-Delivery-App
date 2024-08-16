@@ -1,10 +1,30 @@
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { Colors } from '@/constants/Colors'
-import { Redirect, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { logIn } from './../../services/api';
 
 export default function SignIn() {
     const router = useRouter();
+
+    // Importing email and Pass
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogIn = async () => {
+        try {
+            const credentials = { email, password };
+            const response = await logIn(credentials);
+            await AsyncStorage.setItem('userToken', response.token);
+            Alert.alert('Success', 'Logged in successfully!');
+            router.replace('/explore');
+        } catch (error) {
+            Alert.alert('Error', error.message || 'Failed to log in');
+        }
+    };
 
     return (
         <KeyboardAwareScrollView>
@@ -51,16 +71,20 @@ export default function SignIn() {
                     <TextInput
                         placeholder="Username, Login ID"
                         style={styles.input}
+                        value={email}
+                        onChangeText={setEmail}
                     />
                     <TextInput
                         secureTextEntry={true}
                         placeholder="Password"
                         style={styles.input}
+                        value={password}
+                        onChangeText={setPassword}
                     />
 
                     {/* Sign In Button */}
                     <TouchableOpacity
-                        onPress={() => router.navigate('/explore')}
+                        onPress={handleLogIn}
                         style={[styles.btn, {
                             padding: 10,
                             backgroundColor: Colors.VALENTINE_RED,

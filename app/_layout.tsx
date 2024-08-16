@@ -1,7 +1,24 @@
 import { useFonts } from "expo-font";
+import React, { useState, useEffect } from "react";
 import { Stack } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function RootLayout() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const token = await AsyncStorage.getItem("userToken");
+      if (token) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
   // Specify the required fonts in the app
   useFonts({
     roboto: require("./../assets/fonts/Roboto-Medium.ttf"),
@@ -14,20 +31,21 @@ export default function RootLayout() {
   });
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      {/* <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-
-      {/* Rendering the different tabs of the app */}
-      <Stack.Screen name="(tabs)" />
+    <Stack screenOptions={{ headerShown: false }}>
+      {/* If the user is authenticated, show the main app */}
+      {isAuthenticated ? (
+        <>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="tabs/explore" />
+          <Stack.Screen name="tabs/wallet" />
+          <Stack.Screen name="tabs/history" />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="auth/sign-in" />
+          <Stack.Screen name="auth/sign-up" />
+        </>
+      )}
     </Stack>
   );
 }

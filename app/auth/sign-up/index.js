@@ -1,10 +1,74 @@
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { Colors } from '@/constants/Colors'
-import { Redirect, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+// Importing signUp function from api.js
+import { signUp } from './../../services/api';
+import { useState } from 'react';
 
 export default function SignUp() {
     const router = useRouter();
+
+    // constants for email and password
+    const [first_name, setFName] = useState('');
+    const [last_name, setLName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password_confirmation, setConfirmPassword] = useState('');
+
+    //   function to handle sign-up
+    // const handleSignUp = async () => {
+    //     try {
+    //         const userData = { first_name, last_name, phone, email, password, password_confirmation };
+    //         const response = await signUp(userData);
+
+    //         if (!response.ok) {
+    //             throw new Error('Failed to sign up....');
+    //         }
+
+    //         // if (setPassword.length < 8) Alert.alert('Error' || 'Password should be at least 8');
+
+    //         const result = await response.json();
+
+    //         Alert.alert('Success', 'Account created successfully!');
+    //         // navigation.navigate('auth/sign-in');
+    //         router.push('/auth/sign-in');
+    //     }
+    //     catch (error) {
+    //         Alert.alert('Error', error.message || 'Failed to sign up');
+    //     }
+    //     // catch (error) {
+    //     //     console.log(error.response ? error.response.data : error.message);
+    //     //     Alert.alert('Error', error.response ? error.response.data.message : 'Failed to sign up');
+    //     // }
+    // };
+
+
+    const handleSignUp = async () => {
+        if (password.length < 8) {
+            Alert.alert('Error', 'Password should be at least 8 characters long');
+            return;
+        }
+
+        try {
+            const userData = { first_name, last_name, phone, email, password, password_confirmation };
+            const response = await signUp(userData);
+
+            if (response.status !== 200) {
+                throw new Error('Failed to sign up');
+            }
+
+            Alert.alert('Success', 'Account created successfully!');
+            router.push('/sign-in');
+        } catch (error) {
+            // Alert.alert('Error', error.message || 'Failed to sign up');
+            const errorMessage = error.response?.data?.message || error.message || 'Failed to sign up';
+            Alert.alert('Error', errorMessage);
+        }
+    };
+
 
     return (
         <KeyboardAwareScrollView>
@@ -37,29 +101,48 @@ export default function SignUp() {
                     <TextInput
                         placeholder="First Name"
                         style={styles.input}
+                        value={first_name}
+                        onChangeText={setFName}
                     />
                     <TextInput
                         placeholder="Last Name"
                         style={styles.input}
+                        value={last_name}
+                        onChangeText={setLName}
+                    />
+                    <TextInput
+                        placeholder="Mobile No."
+                        style={styles.input}
+                        value={phone}
+                        keyboardType='numeric'
+                        maxLength={10}
+                        onChangeText={setPhone}
                     />
                     <TextInput
                         placeholder="Username / Email"
                         style={styles.input}
+                        value={email}
+                        keyboardType='email-address'
+                        onChangeText={setEmail}
                     />
                     <TextInput
                         secureTextEntry={true}
                         placeholder="Password"
                         style={styles.input}
+                        value={password}
+                        onChangeText={setPassword}
                     />
                     <TextInput
                         secureTextEntry={true}
                         placeholder="Confirm Password"
                         style={styles.input}
+                        value={password_confirmation}
+                        onChangeText={setConfirmPassword}
                     />
 
                     {/* Sign In Button */}
                     <TouchableOpacity
-                        onPress={() => router.navigate('/explore')}
+                        onPress={handleSignUp}
                         style={[styles.btn, {
                             padding: 10,
                             backgroundColor: Colors.VALENTINE_RED,
