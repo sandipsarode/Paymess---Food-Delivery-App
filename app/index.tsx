@@ -7,6 +7,7 @@ import SignIn from "./auth/sign-in/index";
 import Wallet from "./(tabs)/wallet";
 import Coupon from "../components/wallet/Coupon";
 // import CouponVoucher from "../components/wallet/CouponVoucher";
+import Explore from "./(tabs)/explore";
 
 export default function Index() {
   // Display the Splash Screen based on condition
@@ -26,7 +27,8 @@ export default function Index() {
     >
       {/* Show Splash Screen */}
       {/* {isShowSplash ? <SplashScreen /> : <SignIn />} */}
-      <Wallet />
+      {/* <Wallet /> */}
+      <Explore />
       {/* <Coupon /> */}
       {/* <CouponVoucher /> */}
     </View>

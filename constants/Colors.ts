@@ -17,6 +17,9 @@ export const Colors = {
   PALATINATE_BLUE: "#2142E9",
   BOULDER: "#7A7979",
   BGCOLOR: "#F6F6F6",
+  BGCOLORMENUTOP: "#141414",
+  BGCOLORMENUBOTTOM: "#282828",
+
   // Color Code of App ends here
   light: {
     text: "#11181C",
