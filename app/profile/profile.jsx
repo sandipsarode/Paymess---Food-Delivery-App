@@ -1,10 +1,14 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import React from "react";
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
+import React, { useState } from "react";
 import { useRouter } from "expo-router";
-
-// Importing ColorCode
-import { Colors } from "../../constants/Colors";
 
 // Importing Expo Icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -13,11 +17,42 @@ import Octicons from "@expo/vector-icons/Octicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+// Importing ColorCode
+import { Colors } from "../../constants/Colors";
+
+import { logOut } from "./../services/api";
+
 // Importing Profile Icon
 import profile from "../../assets/images/profile.jpg";
 
 export default function Profile() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogOut = async () => {
+    setLoading(true);
+    try {
+      await logOut(); // Call the logout API
+      await AsyncStorage.removeItem("userToken"); // Remove token from storage
+      Alert.alert("Success", "You have been logged out.");
+      router.replace("/auth/sign-in"); // Navigate to sign-in screen
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle Option Press
+  const handleOptionPress = (option) => {
+    if (option.text === "Log Out") {
+      handleLogOut();
+    } else if (option.route) {
+      router.push(option.route);
+    } else {
+      Alert.alert("Coming Soon", `The ${option.text} feature is coming soon.`);
+    }
+  };
 
   //   Setting the values of the Profile Options
   const options = [
@@ -50,7 +85,9 @@ export default function Profile() {
       {/* Profile */}
       <View style={[styles.cardProperty, styles.alignment]}>
         <Image source={profile} style={styles.icon} />
-        <Text style={styles.title}>Sandip Jin Sakai</Text>
+        <Text style={styles.title}>Jin Sakai</Text>
+
+        {/* Icon for Profile */}
         <FontAwesome5
           name="edit"
           size={28}
@@ -66,24 +103,30 @@ export default function Profile() {
       >
         <Text style={[styles.icon, styles.currencyIcon]}>₹</Text>
         <Text style={styles.title}>Wallet</Text>
+
         <View style={styles.walletAmount}>
           <Text style={styles.walletText}>₹ 5000</Text>
         </View>
       </TouchableOpacity>
 
       {/* Profile Update Options */}
-      <View style={[styles.cardProperty, { paddingTop: 20 }]}>
+      {/* <View style={[styles.cardProperty, { paddingTop: 20 }]}>
         {options.map((option, index) => (
-          <View key={index} style={[styles.alignment, styles.optionSpacing]}>
-            <View style={styles.editIcon}>
+          <View key={index} style={[styles.alignment, styles.optionSpacing]}> */}
+      {/* Icon for multiple Profile Editing option */}
+      {/* <View style={styles.editIcon}>
               <option.icon
                 name={option.name}
                 size={option.size}
                 color={Colors.VALENTINE_RED}
               />
-            </View>
-            <Text style={styles.updateOptionTxt}>{option.text}</Text>
-            <TouchableOpacity style={styles.editIconRight}>
+            </View> */}
+
+      {/* Heading for multiple Profile Editing option */}
+      {/* <Text style={styles.updateOptionTxt}>{option.text}</Text> */}
+
+      {/* Expand Icon for multiple Profile Editing option */}
+      {/* <TouchableOpacity style={styles.editIconRight}>
               <MaterialIcons
                 name="arrow-right"
                 size={38}
@@ -92,7 +135,43 @@ export default function Profile() {
             </TouchableOpacity>
           </View>
         ))}
+      </View> */}
+
+      <View style={[styles.cardProperty, styles.optionsContainer]}>
+        {options.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.optionItem, styles.alignment]}
+            onPress={() => handleOptionPress(option)}
+          >
+            <View style={styles.optionIcon}>
+              <option.icon
+                name={option.name}
+                size={option.size}
+                color={Colors.VALENTINE_RED}
+              />
+            </View>
+            <Text style={styles.optionText}>{option.text}</Text>
+            <MaterialIcons
+              name="arrow-forward-ios"
+              size={20}
+              color={Colors.VALENTINE_RED}
+              style={styles.optionArrow}
+            />
+          </TouchableOpacity>
+        ))}
       </View>
+
+      {/* Loading Indicator */}
+      {loading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator
+            size="large"
+            color={Colors.VALENTINE_RED}
+            overlayColor="rgba(0, 0, 0, 0.7)"
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -168,5 +247,41 @@ const styles = StyleSheet.create({
   },
   optionSpacing: {
     marginBottom: 20,
+  },
+  optionsContainer: {
+    paddingVertical: 10,
+  },
+  optionItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  optionIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: Colors.BGCOLOR,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 15,
+  },
+  optionText: {
+    flex: 1,
+    fontSize: 16,
+    fontFamily: "openSans-semiBold",
+    color: "#333",
+  },
+  optionArrow: {
+    marginLeft: 10,
+  },
+  loadingOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

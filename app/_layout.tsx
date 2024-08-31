@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

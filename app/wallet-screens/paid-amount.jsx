@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-
-// Importing ColorCode
-import { Colors } from "../../constants/Colors";
+import { useRouter } from "expo-router";
 
 // Importing Expo Icons
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
+
+// Importing ColorCode
+import { Colors } from "../../constants/Colors";
 
 export default function PaidAmount() {
   const router = useRouter();

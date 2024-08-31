@@ -1,14 +1,18 @@
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { Colors } from '@/constants/Colors'
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 // Importing signUp function from api.js
 import { signUp } from './../../services/api';
-import { useState } from 'react';
 
 export default function SignUp() {
     const router = useRouter();
+
+    // useState for loader
+    const [loading, setLoading] = useState(false);
 
     // constants for email and password
     const [first_name, setFName] = useState('');
@@ -18,61 +22,38 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [password_confirmation, setConfirmPassword] = useState('');
 
-    //   function to handle sign-up
-    // const handleSignUp = async () => {
-    //     try {
-    //         const userData = { first_name, last_name, phone, email, password, password_confirmation };
-    //         const response = await signUp(userData);
-
-    //         if (!response.ok) {
-    //             throw new Error('Failed to sign up....');
-    //         }
-
-    //         // if (setPassword.length < 8) Alert.alert('Error' || 'Password should be at least 8');
-
-    //         const result = await response.json();
-
-    //         Alert.alert('Success', 'Account created successfully!');
-    //         // navigation.navigate('auth/sign-in');
-    //         router.push('/auth/sign-in');
-    //     }
-    //     catch (error) {
-    //         Alert.alert('Error', error.message || 'Failed to sign up');
-    //     }
-    //     // catch (error) {
-    //     //     console.log(error.response ? error.response.data : error.message);
-    //     //     Alert.alert('Error', error.response ? error.response.data.message : 'Failed to sign up');
-    //     // }
-    // };
-
-
+    // Function to Handle SignUp
     const handleSignUp = async () => {
+        setLoading(true); // Show loader
+
+        // Check the password length (which should to more than 8 character)
         if (password.length < 8) {
             Alert.alert('Error', 'Password should be at least 8 characters long');
             return;
         }
 
+        // Sending the SignUp Data to the server and Create a New account of Customer
         try {
             const userData = { first_name, last_name, phone, email, password, password_confirmation };
             const response = await signUp(userData);
 
-            if (response.status !== 200) {
-                throw new Error('Failed to sign up');
-            }
-
             Alert.alert('Success', 'Account created successfully!');
-            router.push('/sign-in');
+            router.push('/auth/sign-in');
         } catch (error) {
-            // Alert.alert('Error', error.message || 'Failed to sign up');
-            const errorMessage = error.response?.data?.message || error.message || 'Failed to sign up';
-            Alert.alert('Error', errorMessage);
+            Alert.alert('Error', error.message || 'Failed to sign up');
+        } finally {
+            setLoading(false); // Hide loader
         }
     };
+
 
 
     return (
         <KeyboardAwareScrollView>
             <View style={styles.container}>
+                {/* Loader */}
+                <Spinner visible={loading} textContent={'Loading...'} textStyle={{ color: '#FFF' }} overlayColor="rgba(0, 0, 0, 0.7)" />
+
                 {/* Logo of the App */}
                 <Image source={require('./../../../assets/images/signUp.png')}
                     style={{

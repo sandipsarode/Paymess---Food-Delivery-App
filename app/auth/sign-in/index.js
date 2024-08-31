@@ -4,7 +4,9 @@ import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Spinner from 'react-native-loading-spinner-overlay';
 
+// Importing logIn function from api.js for the Cutomer LogIn
 import { logIn } from './../../services/api';
 
 export default function SignIn() {
@@ -14,7 +16,12 @@ export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // useState for loader
+    const [loading, setLoading] = useState(false);
+
+    // Function to Handle SignIn
     const handleLogIn = async () => {
+        setLoading(true); // Show loader
         try {
             const credentials = { email, password };
             const response = await logIn(credentials);
@@ -23,12 +30,18 @@ export default function SignIn() {
             router.replace('/explore');
         } catch (error) {
             Alert.alert('Error', error.message || 'Failed to log in');
+        } finally {
+            setLoading(false); // Hide loader
         }
     };
+
 
     return (
         <KeyboardAwareScrollView>
             <View style={styles.container}>
+                {/* Loader */}
+                <Spinner visible={loading} textContent={'Loading...'} textStyle={{ color: '#FFF' }} overlayColor="rgba(0, 0, 0, 0.7)" />
+
                 {/* Logo of the App */}
                 <Image source={require('./../../../assets/images/logo2.png')}
                     style={{
@@ -99,6 +112,7 @@ export default function SignIn() {
                         >
                             Log In
                         </Text>
+                        {/* <LoginLoader visible={modalVisible} onClose={handleLoaderClose} /> */}
                     </TouchableOpacity>
 
                     {/* Forgot Password ? Button */}

@@ -14,6 +14,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Colors } from "../../constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
 // Static mapping of day names to images
 const dayImages = {
@@ -27,6 +28,8 @@ const dayImages = {
 };
 
 export default function Explore() {
+  const router = useRouter();
+
   const [selectedDay, setSelectedDay] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
@@ -57,12 +60,16 @@ export default function Explore() {
                 Hanuman Nagar, Sharda Colony, Gondia
               </Text>
             </View>
-            <Ionicons
-              name="person-circle-outline"
-              size={35}
-              color={Colors.VALENTINE_RED}
+            <TouchableOpacity
               style={styles.profileIcon}
-            />
+              onPress={() => router.push("/profile/profile")}
+            >
+              <Ionicons
+                name="person-circle-outline"
+                size={35}
+                color={Colors.VALENTINE_RED}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -78,7 +85,23 @@ export default function Explore() {
 
         {/* Weekly Schedule Section */}
         <View style={styles.weeklyScheduleContainer}>
-          <Text style={styles.weeklyScheduleTitle}>-- Weekly Schedule --</Text>
+          {/* <Text style={styles.weeklyScheduleTitle}>-- Weekly Schedule --</Text> */}
+
+          {/* Weekly Schedule Divider */}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "100%",
+              margin: "auto",
+              marginTop: 20,
+            }}
+          >
+            <View style={styles.line} />
+            <Text style={styles.txt}>Weekly Schedule</Text>
+            <View style={styles.line} />
+          </View>
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {Object.keys(dayImages).map((day) => (
               <TouchableOpacity
@@ -113,14 +136,39 @@ export default function Explore() {
             resizeMode="cover"
           >
             <View style={styles.packagesContainer}>
-              <Text style={styles.packagesTitle}>Our Packages</Text>
+              {/* <Text style={styles.packagesTitle}>Our Packages</Text> */}
+
+              {/* Our Packages Divider */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "100%",
+                  margin: "auto",
+                  marginBottom: 15,
+                }}
+              >
+                <View style={styles.line} />
+                <Text style={styles.txt}>Our Packages</Text>
+                <View style={styles.line} />
+              </View>
 
               {/* Veg and Non-Veg Toggle */}
               <View style={styles.toggleContainer}>
-                <TouchableOpacity style={styles.toggleButtonActive}>
+                <TouchableOpacity
+                  style={[
+                    styles.toggleButton,
+                    { backgroundColor: Colors.KELLY_GREEN },
+                  ]}
+                >
                   <Text style={styles.toggleButtonText}>Veg</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.toggleButtonInactive}>
+                <TouchableOpacity
+                  style={[
+                    styles.toggleButton,
+                    { backgroundColor: Colors.VALENTINE_RED },
+                  ]}
+                >
                   <Text style={styles.toggleButtonText}>Non-Veg</Text>
                 </TouchableOpacity>
               </View>
@@ -186,61 +234,79 @@ export default function Explore() {
 
       {/* Updated Modal for Day Menu */}
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <LinearGradient
-          colors={[Colors.BGCOLORMENUBOTTOM, Colors.BGCOLORMENUTOP]}
-          start={{ x: 1, y: 0.5 }}
-          end={{ x: 0.3, y: 1 }}
-          style={styles.modalContainer}
-        >
-          <View style={styles.modalContent}>
-            <Text style={styles.dayTitle}>{selectedDay}</Text>
-            {selectedDay && (
-              <Image source={dayImages[selectedDay]} style={styles.dayImage} />
-            )}
+        <ScrollView>
+          <LinearGradient
+            colors={[Colors.BGCOLORMENUBOTTOM, Colors.BGCOLORMENUTOP]}
+            start={{ x: 1, y: 0.5 }}
+            end={{ x: 0.3, y: 1 }}
+            style={styles.modalContainer}
+          >
+            <View style={styles.modalContent}>
+              <Text style={styles.dayTitle}>{selectedDay}</Text>
+              {selectedDay && (
+                <Image
+                  source={dayImages[selectedDay]}
+                  style={styles.dayImage}
+                />
+              )}
 
-            {/* Veg/Non-Veg Selector */}
-            <View style={styles.foodTypeContainer}>
-              <TouchableOpacity style={styles.foodTypeButton}>
-                <Text style={styles.vegText}>Veg</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.foodTypeButton}>
-                <Text style={styles.nonVegText}>Non-Veg</Text>
+              {/* Veg/Non-Veg Selector */}
+              <View style={styles.foodTypeContainer}>
+                <TouchableOpacity style={styles.foodTypeButton}>
+                  <Text style={styles.vegText}>Veg</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.foodTypeButton}>
+                  <Text style={styles.nonVegText}>Non-Veg</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Meal Sections */}
+              {["Breakfast", "Lunch", "Dinner"].map((meal, index) => (
+                <View key={index} style={styles.mealSection}>
+                  <Text style={styles.mealTitle}>{meal}</Text>
+                  <View style={styles.divider} />
+
+                  {/* List of Dishes */}
+                  <View style={styles.dishesContainer}>
+                    <Text style={styles.dishItem}>✔️ Masala Dosa</Text>
+                    <Text style={styles.dishItem}>✔️ Chapati</Text>
+                    <Text style={styles.dishItem}>✔️ Adaraki Dal</Text>
+                    <Text style={styles.dishItem}>✔️ Mix Veg Dry</Text>
+
+                    {/* Dropdown Selector */}
+                    <View
+                      style={{
+                        backgroundColor: "#fff",
+                        width: "45%",
+                        height: 32,
+                        borderRadius: 6,
+                        justifyContent: "center",
+                        marginTop: 8,
+                      }}
+                    >
+                      <Picker
+                        selectedValue={selectedOption}
+                        // style={styles.picker}
+                        onValueChange={(itemValue) =>
+                          setSelectedOption(itemValue)
+                        }
+                      >
+                        <Picker.Item label="Select" value="" />
+                        <Picker.Item label="Rice" value="Rice" />
+                        <Picker.Item label="Rice Kheer" value="Rice Kheer" />
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+              ))}
+
+              {/* Done Button */}
+              <TouchableOpacity style={styles.doneButton} onPress={closeModal}>
+                <Text style={styles.doneButtonText}>Done</Text>
               </TouchableOpacity>
             </View>
-
-            {/* Meal Sections */}
-            {["Breakfast", "Lunch", "Dinner"].map((meal, index) => (
-              <View key={index} style={styles.mealSection}>
-                <Text style={styles.mealTitle}>{meal}</Text>
-                <View style={styles.divider} />
-
-                {/* List of Dishes */}
-                <View style={styles.dishesContainer}>
-                  <Text style={styles.dishItem}>✔️ Masala Dosa</Text>
-                  <Text style={styles.dishItem}>✔️ Chapati</Text>
-                  <Text style={styles.dishItem}>✔️ Adaraki Dal</Text>
-                  <Text style={styles.dishItem}>✔️ Mix Veg Dry</Text>
-
-                  {/* Dropdown Selector */}
-                  {/* <Picker
-                    selectedValue={selectedOption}
-                    style={styles.picker}
-                    onValueChange={(itemValue) => setSelectedOption(itemValue)}
-                  >
-                    <Picker.Item label="Select" value="" />
-                    <Picker.Item label="Rice" value="Rice" />
-                    <Picker.Item label="Rice Kheer" value="Rice Kheer" />
-                  </Picker> */}
-                </View>
-              </View>
-            ))}
-
-            {/* Done Button */}
-            <TouchableOpacity style={styles.doneButton} onPress={closeModal}>
-              <Text style={styles.doneButtonText}>Done</Text>
-            </TouchableOpacity>
-          </View>
-        </LinearGradient>
+          </LinearGradient>
+        </ScrollView>
       </Modal>
     </View>
   );
@@ -277,8 +343,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   searchContainer: {
-    marginLeft: 25,
-    marginRight: 25,
+    marginHorizontal: 25,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#f0f0f0",
@@ -304,7 +369,7 @@ const styles = StyleSheet.create({
   },
   weeklyScheduleTitle: {
     fontSize: 18,
-    fontFamily: "Pacifico-Regular",
+    fontFamily: "pacifico",
     textAlign: "center",
     marginVertical: 20,
   },
@@ -322,8 +387,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   scheduleTextTitle: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 15,
     fontSize: 16,
     backgroundColor: Colors.VALENTINE_RED,
     alignSelf: "center",
@@ -365,26 +429,29 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
+    width: "100%",
+    height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: 300,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    alignItems: "center",
+    // paddingVertical: 100,
+    // marginVertical: 100,
+    // backgroundColor: "white",
+    // borderRadius: 10,
+    // padding: 20,
+    // alignItems: "center",
+    marginTop: 100,
   },
   dayTitle: {
     fontSize: 22,
     fontFamily: "openSans-semiBold",
-    marginBottom: 10,
   },
   dayImage: {
     width: 100,
     height: 100,
-    marginBottom: 15,
+    // marginBottom: 15,
   },
   closeText: {
     fontSize: 16,
@@ -409,7 +476,7 @@ const styles = StyleSheet.create({
 
   packagesTitle: {
     fontSize: 24,
-    fontFamily: "Pacifico-Regular",
+    fontFamily: "pacifico",
     textAlign: "center",
     color: "white",
     marginBottom: 10,
@@ -421,21 +488,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  toggleButtonActive: {
-    backgroundColor: Colors.KELLY_GREEN,
+  toggleButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
     marginRight: 10,
   },
 
-  toggleButtonInactive: {
-    backgroundColor: Colors.VALENTINE_RED,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    marginLeft: 10,
-  },
+  // toggleButtonInactive: {
+  //   backgroundColor: Colors.VALENTINE_RED,
+  //   paddingVertical: 10,
+  //   paddingHorizontal: 20,
+  //   borderRadius: 20,
+  //   marginLeft: 10,
+  // },
 
   toggleButtonText: {
     color: "white",
@@ -453,7 +519,7 @@ const styles = StyleSheet.create({
 
   packageType: {
     fontSize: 20,
-    fontFamily: "Pacifico-Regular",
+    fontFamily: "pacifico",
     textAlign: "center",
     color: Colors.VALENTINE_RED,
     marginBottom: 5,
@@ -464,6 +530,7 @@ const styles = StyleSheet.create({
     fontFamily: "openSans",
     textAlign: "center",
     color: "white",
+    fontFamily: "openSans-semiBold",
   },
   tensionFreeContainer: {
     padding: 20,
@@ -474,12 +541,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.VALENTINE_RED,
     marginBottom: 10,
+    fontFamily: "openSans-extraBold",
   },
   tensionFreeText: {
     fontSize: 16,
     color: "black",
     marginBottom: 10,
     textAlign: "justify",
+    fontFamily: "openSans-semiBold",
   },
   benefitsList: {
     marginBottom: 10,
@@ -488,6 +557,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "black",
     marginBottom: 5,
+    fontFamily: "openSans-semiBold",
   },
   deliveryImage: {
     width: "100%",
@@ -509,8 +579,8 @@ const styles = StyleSheet.create({
   },
   dayTitle: {
     fontSize: 28,
-    fontFamily: "Pacifico-Regular",
-    color: "#ff4444",
+    fontFamily: "pacifico",
+    color: Colors.VALENTINE_RED,
     marginBottom: 15,
   },
   dayImage: {
@@ -527,12 +597,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 13,
     marginHorizontal: 5,
     backgroundColor: "#333",
   },
-  vegText: { color: "#00FF00", fontSize: 18 },
-  nonVegText: { color: "#FF4444", fontSize: 18 },
+  vegText: {
+    color: Colors.KELLY_GREEN,
+    fontSize: 18,
+    fontFamily: "openSans-semiBold",
+  },
+  nonVegText: {
+    color: Colors.VALENTINE_RED,
+    fontSize: 18,
+    fontFamily: "openSans-semiBold",
+  },
   mealSection: {
     width: "100%",
     marginBottom: 20,
@@ -540,42 +618,65 @@ const styles = StyleSheet.create({
   },
   mealTitle: {
     fontSize: 24,
-    fontFamily: "Pacifico-Regular",
-    color: "#ff4444",
+    fontFamily: "pacifico",
+    color: Colors.VALENTINE_RED,
     marginBottom: 5,
   },
   divider: {
     width: "100%",
     height: 1,
-    backgroundColor: "#ff4444",
+    backgroundColor: Colors.VALENTINE_RED,
     marginBottom: 10,
   },
   dishesContainer: {
-    width: "100%",
-    alignItems: "flex-start",
+    // width: "100%",
+    // alignItems: "flex-start",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   dishItem: {
+    width: "50%",
     fontSize: 16,
-    color: "#00FF00",
-    marginVertical: 5,
-  },
-  picker: {
-    width: "100%",
-    height: 40,
     color: "#fff",
-    backgroundColor: "#333",
-    borderRadius: 10,
-    marginVertical: 10,
+    fontFamily: "openSans-semiBold",
+    marginVertical: 3,
   },
+  // picker: {
+  //   // width: "50%",
+  //   height: "auto",
+  //   paddingVertical: 0,
+  //   color: "#fff",
+  //   backgroundColor: "#333",
+  //   // borderRadius: 10,
+  //   // marginVertical: 10,
+  //   // fontSize: 16,
+  //   // color: "#fff",
+  //   fontFamily: "openSans-semiBold",
+  // },
   doneButton: {
     marginTop: 20,
-    padding: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 25,
     backgroundColor: "#ff4444",
-    borderRadius: 10,
+    borderRadius: 12,
+    marginBottom: 100,
   },
   doneButtonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: "openSans-semiBold",
+  },
+
+  line: {
+    flex: 1,
+    height: 2,
+    backgroundColor: Colors.VALENTINE_RED,
+  },
+  txt: {
+    margin: 5,
+    color: Colors.VALENTINE_RED,
+    fontSize: 21,
+    fontFamily: "pacifico",
   },
 });

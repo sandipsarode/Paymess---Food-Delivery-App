@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
-// Importing Icons from expo
+// Importing Icons from Expo-icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Fontisto from "@expo/vector-icons/Fontisto";
@@ -18,6 +18,7 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import { Colors } from "../../constants/Colors";
 import { useRouter } from "expo-router";
 
+// Importing the Coupon Component
 import Coupon from "../../components/wallet/Coupon";
 
 export default function Wallet() {

@@ -5,7 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
 
 export default function Coupon({ visible, onClose }) {
-  // const Coupon = ({ visible, onClose }) => {
+  // Coupon Timer for 2sec
   useEffect(() => {
     if (visible) {
       const timer = setTimeout(() => {

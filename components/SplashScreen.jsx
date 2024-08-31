@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
 import React from "react";
 
+// Importing Color Code
 import { Colors } from "./../constants/Colors";
 
+// Importing logo from localStorage
 import Logo from "./../assets/images/logo.png";
 
 export default function SplashScreen() {

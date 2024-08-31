@@ -7,14 +7,16 @@ import {
   Image,
 } from "react-native";
 import React from "react";
+import { useRouter } from "expo-router";
+
+// Importing Icons from Expo-icons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 // Importing ColorCode
 import { Colors } from "../../constants/Colors";
 
-// Importing Expo Icons
-import Ionicons from "@expo/vector-icons/Ionicons";
+// Importing Icons from LocalStorage
 import icon from "./../../assets/images/googlePay.png";
-import { useRouter } from "expo-router";
 
 export default function CouponVoucher() {
   const router = useRouter();
@@ -29,6 +31,7 @@ export default function CouponVoucher() {
         backgroundColor: "#fff",
       }}
     >
+      {/* Header */}
       <View
         style={{
           display: "flex",
@@ -36,9 +39,11 @@ export default function CouponVoucher() {
           alignItems: "center",
         }}
       >
+        {/* Header Navigation Icon */}
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color={Colors.VALENTINE_RED} />
         </TouchableOpacity>
+        {/* Header Navigation Text */}
         <Text
           style={{
             fontSize: 16,
@@ -106,23 +111,26 @@ export default function CouponVoucher() {
       >
         <View
           style={{
-            width: "100%",
-            paddingHorizontal: 15,
             display: "flex",
             flexDirection: "row",
+            paddingHorizontal: 15,
           }}
         >
+          {/* Voucher Icon */}
           <Image source={icon} style={{ width: 35, resizeMode: "contain" }} />
           <Text
             style={{
+              width: "86%",
               fontSize: 16,
               fontFamily: "openSans-semiBold",
               marginLeft: 10,
+              textAlign: "justify",
             }}
           >
             Get free ₹100 on a topup of ₹1500 using Google Pay
           </Text>
         </View>
+
         <Text
           style={{
             fontSize: 10,
@@ -151,6 +159,8 @@ export default function CouponVoucher() {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* Voucher Apply button */}
         <TouchableOpacity
           style={{
             elevation: 3,

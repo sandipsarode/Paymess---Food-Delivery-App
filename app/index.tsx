@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SplashScreen from "./../components/SplashScreen";
+import SplashScreen from "../components/SplashScreen";
 import { Text, View } from "react-native";
 
 import SignIn from "./auth/sign-in/index";
@@ -8,6 +8,7 @@ import Wallet from "./(tabs)/wallet";
 import Coupon from "../components/wallet/Coupon";
 // import CouponVoucher from "../components/wallet/CouponVoucher";
 import Explore from "./(tabs)/explore";
+import History from "./(tabs)/history";
 
 export default function Index() {
   // Display the Splash Screen based on condition
@@ -26,11 +27,12 @@ export default function Index() {
       }}
     >
       {/* Show Splash Screen */}
-      {/* {isShowSplash ? <SplashScreen /> : <SignIn />} */}
+      {isShowSplash ? <SplashScreen /> : <SignIn />}
       {/* <Wallet /> */}
-      <Explore />
+      {/* <Explore /> */}
       {/* <Coupon /> */}
       {/* <CouponVoucher /> */}
+      {/* <History /> */}
     </View>
   );
 }
