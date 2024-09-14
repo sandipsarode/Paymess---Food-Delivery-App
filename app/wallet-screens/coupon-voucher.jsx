@@ -18,6 +18,8 @@ import { Colors } from "../../constants/Colors";
 // Importing Icons from LocalStorage
 import icon from "./../../assets/images/googlePay.png";
 
+import Divider from "./../../components/commonComponents/Divider";
+
 export default function CouponVoucher() {
   const router = useRouter();
 
@@ -83,21 +85,12 @@ export default function CouponVoucher() {
       </View>
 
       {/* Voucher Divider */}
-      <View
-        style={{
-          width: "90%",
-          marginHorizontal: "auto",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <View style={styles.line} />
-        <Text style={styles.txt}>BEST OFFERS FOR YOU</Text>
-        <View style={styles.line} />
-      </View>
+      <Divider
+        name={"BEST OFFERS FOR YOU"}
+        color={Colors.BOULDER}
+        fontSize={12}
+        fontFamily={"openSans-bold"}
+      />
 
       {/* Voucher Card */}
       <View
@@ -191,17 +184,6 @@ const styles = StyleSheet.create({
   searchTxt: {
     fontSize: 16,
     fontFamily: "openSans",
-  },
-  line: {
-    width: 100,
-    height: 1,
-    backgroundColor: Colors.BOULDER,
-  },
-  txt: {
-    marginHorizontal: 15,
-    color: Colors.BOULDER,
-    fontSize: 12,
-    fontFamily: "openSans-bold",
   },
   voucherTxt: {
     fontSize: 12,

@@ -24,6 +24,7 @@ import { logOut } from "./../services/api";
 
 // Importing Profile Icon
 import profile from "../../assets/images/profile.jpg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Profile() {
   const router = useRouter();
@@ -87,13 +88,13 @@ export default function Profile() {
         <Image source={profile} style={styles.icon} />
         <Text style={styles.title}>Jin Sakai</Text>
 
-        {/* Icon for Profile */}
-        <FontAwesome5
-          name="edit"
-          size={28}
-          color={Colors.VALENTINE_RED}
+        <TouchableOpacity
           style={styles.editIconRight}
-        />
+          onPress={() => router.push("/profile/updateProfile")}
+        >
+          {/* Icon for Profile */}
+          <FontAwesome5 name="edit" size={28} color={Colors.VALENTINE_RED} />
+        </TouchableOpacity>
       </View>
 
       {/* Wallet */}
