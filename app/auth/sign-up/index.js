@@ -24,6 +24,7 @@ export default function SignUp() {
 
     // Function to Handle SignUp
     const handleSignUp = async () => {
+
         setLoading(true); // Show loader
 
         // Check the password length (which should to more than 8 character)

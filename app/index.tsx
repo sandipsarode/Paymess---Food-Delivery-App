@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SplashScreen from "../components/splashScreen/SplashScreen";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import SplashScreen from "../components/splashScreen/SplashScreen";
 import SignIn from "./auth/sign-in/index";
 
 import Wallet from "./(tabs)/wallet";

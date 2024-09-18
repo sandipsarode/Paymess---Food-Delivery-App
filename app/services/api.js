@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://3e70-103-102-144-169.ngrok-free.app/api'; // Replace with your backend URL
+const API_URL = 'https://a74e-103-102-144-168.ngrok-free.app/api'; // Replace with your backend URL
 
 // API variable
 const api = axios.create({
@@ -62,65 +62,6 @@ export const logOut = async () => {
     }
 };
 
-// export const logOut = async () => {
-//     try {
-//         // Log the token before making the request
-//         const token = await AsyncStorage.getItem('userToken');
-//         console.log('Attempting to log out with token:', token);
-
-//         // Make the logout request using the api instance
-//         const response = await api.post('/customer/logout');
-//         console.log('Logout response:', response.data);
-
-//         // If logout is successful, clear the token from AsyncStorage
-//         await AsyncStorage.removeItem('userToken');
-//         return response.data;
-//     } catch (error) {
-//         // Log the full error object for more information
-//         console.error('Logout failed with error:', error);
-
-//         // Log the backend error message if available
-//         if (error.response) {
-//             console.error('Backend response error:', error.response.data);
-//             throw new Error(error.response.data.message || 'Failed to log out');
-//         } else {
-//             throw new Error('Failed to log out');
-//         }
-//     }
-// };
-
-// export const logOut = async () => {
-//     try {
-//         // Log the token before making the request
-//         const token = await AsyncStorage.getItem('userToken');
-//         console.log('Attempting to log out with token:', token);
-
-//         // Test network connectivity
-//         const networkTest = await fetch(API_URL);
-//         if (!networkTest.ok) {
-//             throw new Error('Network test failed, server might be unreachable');
-//         }
-
-//         // Make the logout request using the api instance
-//         const response = await api.post('/customer/logout');
-//         console.log('Logout response:', response.data);
-
-//         // If logout is successful, clear the token from AsyncStorage
-//         await AsyncStorage.removeItem('userToken');
-//         return response.data;
-//     } catch (error) {
-//         // Log the full error object for more information
-//         console.error('Logout failed with error:', error);
-
-//         // Log the backend error message if available
-//         if (error.response) {
-//             console.error('Backend response error:', error.response.data);
-//             throw new Error(error.response.data.message || 'Failed to log out');
-//         } else {
-//             throw new Error(error.message || 'Failed to log out');
-//         }
-//     }
-// };
 
 
 
