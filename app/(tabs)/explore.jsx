@@ -20,7 +20,7 @@ export default function Explore() {
         </View>
 
         {/* Search Bar Section */}
-        <SearchBar />
+        {/* <SearchBar /> */}
 
         {/* Weekly Schedule Section */}
         <WeeklySchedule />

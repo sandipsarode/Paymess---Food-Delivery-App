@@ -24,82 +24,30 @@ const dayImages = {
   Saturday: require("./../../assets/images/week-7.png"),
 };
 
-// export default function WeeklySchedule() {
-//   const [selectedDay, setSelectedDay] = useState(null);
-//   const [modalVisible, setModalVisible] = useState(false);
-//   const [selectedOption, setSelectedOption] = useState("");
-
-// Function to handle day click and open modal
-// const openDayMenu = (day) => {
-//   setSelectedDay(day);
-//   setModalVisible(true);
-// };
-
-//   // Function to close the modal
-//   const closeModal = () => setModalVisible(false);
-
-//   return (
-//     <View>
-//       {/* Weekly Schedule Section */}
-//       <View style={styles.weeklyScheduleContainer}>
-//         {/* Weekly Schedule Divider */}
-//         <Divider
-//           name={"Weekly Schedule"}
-//           color={Colors.VALENTINE_RED}
-//           fontSize={21}
-//           fontFamily={"pacifico"}
-//         />
-
-//         {/* Weekly Menu Cards */}
-//         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-//           {Object.keys(dayImages).map((day) => (
-//             <TouchableOpacity
-//               key={day}
-//               style={styles.scheduleItem}
-//               onPress={() => openDayMenu(day)}
-//             >
-//               <ImageBackground
-//                 source={dayImages[day]}
-//                 style={styles.scheduleImage}
-//                 resizeMode="contain"
-//                 imageStyle={styles.scheduleImageStyle}
-//               >
-//                 <Text style={[styles.scheduleText, styles.scheduleTextTitle]}>
-//                   {day}
-//                 </Text>
-//                 <View style={styles.scheduleMealContainer}>
-//                   <Text style={styles.scheduleMealText}>Lunch</Text>
-//                   <Text style={styles.scheduleMealText}>Dinner</Text>
-//                 </View>
-//               </ImageBackground>
-//             </TouchableOpacity>
-//           ))}
-//         </ScrollView>
-//       </View>
-
-//       {/* Render WeeklyMenu Model and pass props */}
-//       <WeeklyMenuModal
-//         modalVisible={modalVisible}
-//         selectedDay={selectedDay}
-//         dayImages={dayImages}
-//         selectedOption={selectedOption}
-//         setSelectedOption={setSelectedOption}
-//         closeModal={closeModal}
-//       />
-//     </View>
-//   );
-// }
-
 import React, { useState } from "react";
 // import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import WeeklyMenuModal from "./WeeklyMenuModal";
 import { getMenuByDay } from "./../../app/services/api";
+import SearchBar from "../commonComponents/SearchBar";
 
 const WeeklySchedule = () => {
+  // User select any day of week
   const [selectedDay, setSelectedDay] = useState(null);
   const [menu, setMenu] = useState();
   // const [mealType, setMealType] = useState("Breakfast");
   const [isModalVisible, setModalVisible] = useState(false);
+
+  // ----------------------------------------
+  const [filteredDays, setFilteredDays] = useState(Object.keys(dayImages)); // List of days to display
+
+  const handleSearch = (searchText) => {
+    // Filter days based on search input
+    const filtered = Object.keys(dayImages).filter((day) =>
+      day.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredDays(filtered); // Update the filtered list
+  };
+  // ----------------------------------------
 
   const handleDayPress = async (day) => {
     setSelectedDay(day);
@@ -138,9 +86,43 @@ const WeeklySchedule = () => {
           fontFamily={"pacifico"}
         />
 
-        <FlatList
+        {/* =========================================================== */}
+        <SearchBar onSearch={handleSearch} />
+        {/* =========================================================== */}
+
+        {/* <FlatList
           data={Object.keys(dayImages)}
           horizontal={true} // Keep horizontal scrolling
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(day) => day}
+          renderItem={({ item: day }) => (
+            <TouchableOpacity
+              key={day}
+              style={styles.scheduleItem}
+              onPress={() => handleDayPress(day)}
+            >
+              <ImageBackground
+                source={dayImages[day]}
+                style={styles.scheduleImage}
+                resizeMode="contain"
+                imageStyle={styles.scheduleImageStyle}
+              >
+                <Text style={[styles.scheduleText, styles.scheduleTextTitle]}>
+                  {day}
+                </Text>
+                <View style={styles.scheduleMealContainer}>
+                  <Text style={styles.scheduleMealText}>Lunch</Text>
+                  <Text style={styles.scheduleMealText}>Dinner</Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          )}
+        /> */}
+
+        {/* Render filtered days */}
+        <FlatList
+          data={filteredDays}
+          horizontal={true}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(day) => day}
           renderItem={({ item: day }) => (

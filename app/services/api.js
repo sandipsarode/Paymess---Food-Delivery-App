@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://1dc6-103-102-144-174.ngrok-free.app/api'; // Replace with your backend URL
+const API_URL = 'https://11a2-103-102-144-169.ngrok-free.app/api'; // Replace with your backend URL
 
 // API variable
 const api = axios.create({
@@ -93,6 +93,23 @@ export const getMenuByDay = async () => {
     } catch (error) {
         console.error("Error fetching menu:", error.response?.data?.message || error.message);
         throw new Error("Failed to fetch weekly menu");
+    }
+};
+
+
+// Fetch Order History
+export const getOrderHistory = async () => {
+    console.log("API => " + 1);
+
+    try {
+        const response = await api.get('customer/orders/all'); // Replace with your actual endpoint
+        console.log("API => " + JSON.stringify(response.data));
+        return response.data;
+    } catch (error) {
+        console.log("API => error 1");
+        console.error('Error fetching order history:', error.response?.data?.message || error.message);
+        console.log("API => error 2");
+        throw new Error('Failed to fetch order history');
     }
 };
 

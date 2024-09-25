@@ -1,5 +1,5 @@
 import { View, Text, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
 import { Colors } from "./../../constants/Colors";
@@ -7,7 +7,14 @@ import { Colors } from "./../../constants/Colors";
 // Importing Icons from Expo-icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+    onSearch(text); // Pass the search text to the parent component
+  };
+
   return (
     <View style={styles.searchContainer}>
       <Ionicons name="search" size={20} color={Colors.VALENTINE_RED} />
@@ -15,6 +22,8 @@ export default function SearchBar() {
         style={styles.searchInput}
         placeholder="Search"
         placeholderTextColor="gray"
+        value={searchText}
+        onChangeText={handleSearch}
       />
     </View>
   );
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 25,
+    marginHorizontal: 10,
     marginVertical: 20,
     paddingHorizontal: 15,
     paddingVertical: 8,
