@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Alert,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 // import React, { useState } from "react";
 
@@ -29,6 +30,7 @@ import React, { useState } from "react";
 import WeeklyMenuModal from "./WeeklyMenuModal";
 import { getMenuByDay } from "./../../app/services/api";
 import SearchBar from "../commonComponents/SearchBar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const WeeklySchedule = () => {
   // User select any day of week
@@ -39,6 +41,7 @@ const WeeklySchedule = () => {
 
   // ----------------------------------------
   const [filteredDays, setFilteredDays] = useState(Object.keys(dayImages)); // List of days to display
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = (searchText) => {
     // Filter days based on search input
@@ -50,6 +53,7 @@ const WeeklySchedule = () => {
   // ----------------------------------------
 
   const handleDayPress = async (day) => {
+    setLoading(true);
     setSelectedDay(day);
     console.log("1");
 
@@ -68,7 +72,7 @@ const WeeklySchedule = () => {
       console.log("Error");
       Alert.alert("Error", error.message || "Failed to sign up");
     }
-
+    setLoading(false);
     setModalVisible(true); // Show modal after fetching menu
   };
 
@@ -87,7 +91,10 @@ const WeeklySchedule = () => {
         />
 
         {/* =========================================================== */}
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar
+          onSearch={handleSearch}
+          placeHolder={"Search Day (ex. Monday)"}
+        />
         {/* =========================================================== */}
 
         {/* <FlatList
@@ -147,6 +154,14 @@ const WeeklySchedule = () => {
               </ImageBackground>
             </TouchableOpacity>
           )}
+        />
+
+        {/* Loading Indicator */}
+        <Spinner
+          visible={loading}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+          overlayColor="rgba(0, 0, 0, 0.7)"
         />
 
         {isModalVisible && (

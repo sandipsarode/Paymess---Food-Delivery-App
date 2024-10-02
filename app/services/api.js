@@ -1,16 +1,15 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://11a2-103-102-144-169.ngrok-free.app/api'; // Replace with your backend URL
+export const API_URL = 'https://8e72-103-102-144-170.ngrok-free.app/api'; // Replace with your backend URL
+export const API = 'https://8e72-103-102-144-170.ngrok-free.app'; // Replace with your backend URL
 
 // API variable
 const api = axios.create({
     baseURL: API_URL,
     // method: 'POST',
     timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    headers: { 'Content-Type': 'application/json' }
 });
 
 // api.interceptors.request.use(async (config) => {

@@ -1,22 +1,88 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "./../../constants/Colors";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 
+import { API } from "./../../app/services/api";
+
 // Function to format the date
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "short" });
-  const year = date.getFullYear();
-  let hours = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  const ampm = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12;
-  return `${day} ${month} ${year}, at ${hours}:${minutes}${ampm}`;
-};
+// function formatDate(createdDate) {
+//   const months = [
+//     "Jan",
+//     "Feb",
+//     "Mar",
+//     "Apr",
+//     "May",
+//     "Jun",
+//     "Jul",
+//     "Aug",
+//     "Sep",
+//     "Oct",
+//     "Nov",
+//     "Dec",
+//   ];
+
+//   var t = new Date(createdDate);
+//   var hour = t.getUTCHours();
+//   var minute = t.getUTCMinutes();
+//   var newformat = t.getUTCHours() >= 12 ? "PM" : "AM";
+
+//   // Find current hour in AM-PM Format
+//   hour = hour % 12;
+
+//   // To display "0" as "12"
+//   hour = hour ? hour : 12;
+//   minute = minute < 10 ? "0" + minute : minute;
+
+//   var formatted =
+//     ("0" + t.getDate()).slice(-2) +
+//     " " +
+//     months[parseInt(("0" + (t.getMonth() + 1)).slice(-2)) - 1] +
+//     " " +
+//     t.getFullYear() +
+//     ", at " +
+//     ("0" + t.getUTCHours()).slice(-2) +
+//     ":" +
+//     ("0" + t.getUTCMinutes()).slice(-2) +
+//     " " +
+//     newformat;
+
+//   return formatted;
+// }
+
+function formatDate(createdDate) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const t = new Date(createdDate);
+  let hour = t.getUTCHours();
+  const minute = t.getUTCMinutes().toString().padStart(2, "0");
+  const newFormat = hour >= 12 ? "PM" : "AM";
+
+  // Convert 24-hour format to 12-hour format
+  hour = hour % 12 || 12; // Converts 0 to 12 and keeps other hours intact
+
+  const day = t.getUTCDate().toString().padStart(2, "0");
+  const month = months[t.getUTCMonth()];
+  const year = t.getUTCFullYear();
+
+  // Final formatted string
+  return `${day} ${month} ${year}, at ${hour}:${minute} ${newFormat}`;
+}
 
 export default function HistoryCard({ data }) {
   const { order_items } = data;
@@ -27,6 +93,11 @@ export default function HistoryCard({ data }) {
 
   const item = order_items[0]; // Assuming all order_items have the same food_item for display
 
+  useEffect(() => {
+    console.log("Time: => " + formatDate(data.created_at));
+    console.log(API + item.food_item.image_url);
+  }, []);
+
   return (
     <View style={styles.card}>
       <View style={styles.row}>
@@ -34,9 +105,7 @@ export default function HistoryCard({ data }) {
         <View style={styles.imageContainer}>
           <Image
             source={{
-              uri:
-                "https://11a2-103-102-144-169.ngrok-free.app" +
-                item.food_item.image_url,
+              uri: API + item.food_item.image_url,
             }}
             style={styles.image}
           />
@@ -81,9 +150,7 @@ export default function HistoryCard({ data }) {
 
       {/* Time Detail */}
       <View style={styles.timeContainer}>
-        <Text style={styles.timeText}>
-          {formatDate(item.food_item.created_at)}
-        </Text>
+        <Text style={styles.timeText}>{formatDate(data.created_at)}</Text>
       </View>
     </View>
   );
@@ -177,3 +244,26 @@ const styles = StyleSheet.create({
     color: Colors.BOULDER,
   },
 });
+
+// console.log("createdDate => " + createdDate);
+
+// const date = createdDate[8] + createdDate[9];
+// console.log("date => " + createdDate[8] + createdDate[9]);
+// const month = parseInt(createdDate[5] + createdDate[6]);
+// console.log("month => " + month);
+// const year =
+//   createdDate[0] + createdDate[1] + createdDate[2] + createdDate[3];
+// console.log(
+//   "year => " +
+//     createdDate[0] +
+//     createdDate[1] +
+//     createdDate[2] +
+//     createdDate[3]
+// );
+
+// const hours = createdDate[11] + createdDate[12];
+// console.log("hours => " + hours);
+// const minutes = createdDate[14] + createdDate[15];
+// console.log("minutes => " + minutes);
+// const ampm = hours >= 12 ? "pm" : "am";
+// console.log("minutes => " + ampm);

@@ -26,7 +26,7 @@ export default function SignIn() {
             const credentials = { email, password };
             const response = await logIn(credentials);
             await AsyncStorage.setItem('userToken', response.token);
-            Alert.alert('Success', 'Logged in successfully!');
+            // Alert.alert('Success', 'Logged in successfully!');
             router.replace('/explore');
         } catch (error) {
             Alert.alert('Error', error.message || 'Failed to log in');

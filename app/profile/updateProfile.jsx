@@ -5,6 +5,7 @@ import { Colors } from "../../constants/Colors";
 import { TouchableOpacity } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import CustomInput from "../../components/CustomInput";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 export default function UpdateProfile() {
   const navigation = useNavigation();
 
@@ -24,50 +25,51 @@ export default function UpdateProfile() {
   }, []);
 
   return (
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        paddingTop: 80,
-        backgroundColor: Colors.BGCOLOR,
-      }}
-    >
-      <TouchableOpacity style={styles.profileImgSection}>
-        <Image
-          alt="Profile Image"
-          source={require("./../../assets/images/profile.jpg")}
-          style={styles.profileImg}
-        />
-        <View style={styles.profileAction}>
-          <FontAwesome5 name="edit" size={20} color={Colors.KELLY_GREEN} />
-        </View>
-      </TouchableOpacity>
+    <KeyboardAwareScrollView>
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          paddingTop: 80,
+          backgroundColor: Colors.BGCOLOR,
+        }}
+      >
+        <TouchableOpacity style={styles.profileImgSection}>
+          <Image
+            alt="Profile Image"
+            source={require("./../../assets/images/profile.jpg")}
+            style={styles.profileImg}
+          />
+          <View style={styles.profileAction}>
+            <FontAwesome5 name="edit" size={20} color={Colors.KELLY_GREEN} />
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.inputFields}>
-        <CustomInput placeholder={"Name"} onChangeText={setName} />
-        <CustomInput
-          placeholder={"Mobile"}
-          onChangeText={setMobile}
-          containerStyle={{ marginTop: 10 }}
-          keyboardType="numeric"
-          maxLength={10}
-        />
-        <CustomInput
-          placeholder={"Email"}
-          onChangeText={setEmail}
-          containerStyle={{ marginTop: 10 }}
-          keyboardType="email-address"
-        />
-        <CustomInput
-          placeholder={"Date of Birth"}
-          onChangeText={setDob}
-          containerStyle={{ marginTop: 10 }}
-          // keyboardType=""
-          // onPress={() => {
-          //   setOpen(true);
-          // }}
-        />
-        {/* <DatePicker
+        <View style={styles.inputFields}>
+          <CustomInput placeholder={"Name"} onChangeText={setName} />
+          <CustomInput
+            placeholder={"Mobile"}
+            onChangeText={setMobile}
+            containerStyle={{ marginTop: 10 }}
+            keyboardType="numeric"
+            maxLength={10}
+          />
+          <CustomInput
+            placeholder={"Email"}
+            onChangeText={setEmail}
+            containerStyle={{ marginTop: 10 }}
+            keyboardType="email-address"
+          />
+          <CustomInput
+            placeholder={"Date of Birth"}
+            onChangeText={setDob}
+            containerStyle={{ marginTop: 10 }}
+            // keyboardType=""
+            // onPress={() => {
+            //   setOpen(true);
+            // }}
+          />
+          {/* <DatePicker
           modal
           mode="date"
           dateFormat="MM-DD-YYYY"
@@ -80,31 +82,32 @@ export default function UpdateProfile() {
             setOpen(false);
           }}
         /> */}
-      </View>
+        </View>
 
-      {/* Sign In Button */}
-      <TouchableOpacity
-        // onPress={handleSignUp}
-        style={[
-          styles.btn,
-          {
-            padding: 10,
-            backgroundColor: Colors.VALENTINE_RED,
-          },
-        ]}
-      >
-        <Text
-          style={{
-            color: "white",
-            textAlign: "center",
-            fontFamily: "openSans-extraBold",
-            fontSize: 18,
-          }}
+        {/* Sign In Button */}
+        <TouchableOpacity
+          // onPress={handleSignUp}
+          style={[
+            styles.btn,
+            {
+              padding: 10,
+              backgroundColor: Colors.VALENTINE_RED,
+            },
+          ]}
         >
-          Save
-        </Text>
-      </TouchableOpacity>
-    </View>
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontFamily: "openSans-extraBold",
+              fontSize: 18,
+            }}
+          >
+            Save
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
   btn: {
     width: "80%",
     marginHorizontal: "auto",
-    marginTop: 20,
+    marginVertical: 20,
     borderRadius: 5,
     height: 50,
     justifyContent: "center",

@@ -7,7 +7,7 @@ import { Colors } from "./../../constants/Colors";
 // Importing Icons from Expo-icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, placeHolder }) {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = (text) => {
@@ -20,7 +20,7 @@ export default function SearchBar({ onSearch }) {
       <Ionicons name="search" size={20} color={Colors.VALENTINE_RED} />
       <TextInput
         style={styles.searchInput}
-        placeholder="Search"
+        placeholder={placeHolder}
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={handleSearch}
