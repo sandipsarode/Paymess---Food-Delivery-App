@@ -8,50 +8,6 @@ import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import { API } from "./../../app/services/api";
 
 // Function to format the date
-// function formatDate(createdDate) {
-//   const months = [
-//     "Jan",
-//     "Feb",
-//     "Mar",
-//     "Apr",
-//     "May",
-//     "Jun",
-//     "Jul",
-//     "Aug",
-//     "Sep",
-//     "Oct",
-//     "Nov",
-//     "Dec",
-//   ];
-
-//   var t = new Date(createdDate);
-//   var hour = t.getUTCHours();
-//   var minute = t.getUTCMinutes();
-//   var newformat = t.getUTCHours() >= 12 ? "PM" : "AM";
-
-//   // Find current hour in AM-PM Format
-//   hour = hour % 12;
-
-//   // To display "0" as "12"
-//   hour = hour ? hour : 12;
-//   minute = minute < 10 ? "0" + minute : minute;
-
-//   var formatted =
-//     ("0" + t.getDate()).slice(-2) +
-//     " " +
-//     months[parseInt(("0" + (t.getMonth() + 1)).slice(-2)) - 1] +
-//     " " +
-//     t.getFullYear() +
-//     ", at " +
-//     ("0" + t.getUTCHours()).slice(-2) +
-//     ":" +
-//     ("0" + t.getUTCMinutes()).slice(-2) +
-//     " " +
-//     newformat;
-
-//   return formatted;
-// }
-
 function formatDate(createdDate) {
   const months = [
     "Jan",
@@ -92,11 +48,6 @@ export default function HistoryCard({ data }) {
   }
 
   const item = order_items[0]; // Assuming all order_items have the same food_item for display
-
-  useEffect(() => {
-    console.log("Time: => " + formatDate(data.created_at));
-    console.log(API + item.food_item.image_url);
-  }, []);
 
   return (
     <View style={styles.card}>

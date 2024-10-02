@@ -13,8 +13,6 @@ export default function UpdateProfile() {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
-  // const [open, setOpen] = useState(false);
-  // const [date, setDate] = useState("");
 
   useEffect(() => {
     navigation.setOptions({

@@ -90,41 +90,10 @@ const WeeklySchedule = () => {
           fontFamily={"pacifico"}
         />
 
-        {/* =========================================================== */}
         <SearchBar
           onSearch={handleSearch}
           placeHolder={"Search Day (ex. Monday)"}
         />
-        {/* =========================================================== */}
-
-        {/* <FlatList
-          data={Object.keys(dayImages)}
-          horizontal={true} // Keep horizontal scrolling
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(day) => day}
-          renderItem={({ item: day }) => (
-            <TouchableOpacity
-              key={day}
-              style={styles.scheduleItem}
-              onPress={() => handleDayPress(day)}
-            >
-              <ImageBackground
-                source={dayImages[day]}
-                style={styles.scheduleImage}
-                resizeMode="contain"
-                imageStyle={styles.scheduleImageStyle}
-              >
-                <Text style={[styles.scheduleText, styles.scheduleTextTitle]}>
-                  {day}
-                </Text>
-                <View style={styles.scheduleMealContainer}>
-                  <Text style={styles.scheduleMealText}>Lunch</Text>
-                  <Text style={styles.scheduleMealText}>Dinner</Text>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
-          )}
-        /> */}
 
         {/* Render filtered days */}
         <FlatList

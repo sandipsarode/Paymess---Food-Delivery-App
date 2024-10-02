@@ -12,16 +12,6 @@ const api = axios.create({
     headers: { 'Content-Type': 'application/json' }
 });
 
-// api.interceptors.request.use(async (config) => {
-//     const token = await AsyncStorage.getItem('userToken');
-//     if (token) {
-//         config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-// },
-//     (error) => Promise.reject(error)
-// );
-// Adding Authorization Token Interceptor
 api.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('userToken');
     if (token) {
@@ -55,22 +45,6 @@ export const logIn = async (credentials) => {
 };
 
 // Logout Function
-// export const logOut = async () => {
-//     console.log("LogOut 1");
-
-//     try {
-//         console.log("LogOut 2");
-//         // const response = await axios.post(`${API_URL}/customer/logout`); // Adjust the endpoint as per your backend
-//         // const response = await axios.post('/customer/logout'); // Adjust the endpoint as per your backend
-//         const response = await api.post('/customer/logout');
-//         console.log("LogOut 3");
-//         return response.data;
-//     } catch (error) {
-//         console.log("LogOut Error");
-//         throw new Error(error.response?.data?.message || 'Failed to log out');
-//     }
-// };
-
 export const logOut = async () => {
     try {
         const response = await api.post("/customer/logout");

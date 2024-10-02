@@ -20,7 +20,6 @@ const WeeklyMenuModal = ({
   menu,
   ...props
 }) => {
-  // ----------------------------------
   const [selectedFoodType, setSelectedFoodType] = useState("Veg");
 
   // Filter the menu based on the selected food type (Veg/NonVeg)
@@ -36,17 +35,6 @@ const WeeklyMenuModal = ({
     acc[item.meal_type].push(item);
     return acc;
   }, {});
-
-  // ---------------------------------
-
-  // Group items by meal_type
-  // const groupedMenu = menu.reduce((acc, item) => {
-  //   if (!acc[item.meal_type]) {
-  //     acc[item.meal_type] = [];
-  //   }
-  //   acc[item.meal_type].push(item);
-  //   return acc;
-  // }, {});
 
   return (
     <Modal
@@ -80,13 +68,6 @@ const WeeklyMenuModal = ({
               style={styles.foodTypeButton}
               onPress={() => setSelectedFoodType("Veg")}
             >
-              {/* <Text
-                style={[styles.foodTypeText, { color: Colors.KELLY_GREEN }]}
-              >
-                Veg
-              </Text> */}
-
-              {/* ------------------------------------- */}
               <Text
                 style={[
                   styles.foodTypeText,
@@ -98,19 +79,11 @@ const WeeklyMenuModal = ({
               >
                 Veg
               </Text>
-              {/* ------------------------------------- */}
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.foodTypeButton}
               onPress={() => setSelectedFoodType("Non-Veg")}
             >
-              {/* <Text
-                style={[styles.foodTypeText, { color: Colors.VALENTINE_RED }]}
-              >
-                Non-Veg
-              </Text> */}
-
-              {/* --------------------------------------- */}
               <Text
                 style={[
                   styles.foodTypeText,
@@ -124,7 +97,6 @@ const WeeklyMenuModal = ({
               >
                 Non-Veg
               </Text>
-              {/* --------------------------------------- */}
             </TouchableOpacity>
           </View>
 
