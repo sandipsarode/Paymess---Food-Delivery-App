@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const API_URL = 'https://8e72-103-102-144-170.ngrok-free.app/api'; // Replace with your backend URL
-export const API = 'https://8e72-103-102-144-170.ngrok-free.app'; // Replace with your backend URL
+export const API_URL = 'https://55fc-103-102-144-170.ngrok-free.app/api'; // Replace with your backend URL
+export const API = 'https://55fc-103-102-144-170.ngrok-free.app'; // Replace with your backend URL
 
 // API variable
 const api = axios.create({
@@ -53,6 +53,36 @@ export const logOut = async () => {
         throw new Error(error.response?.data?.message || "Failed to log out");
     }
 };
+
+// Profile Function
+export const profileInfo = async () => {
+    console.log("Profile API 1");
+
+    try {
+        const response = await api.get("/customer/profile/show")
+        console.log("Profile API => " + JSON.stringify(response.data));
+        return response.data
+    } catch (error) {
+        console.log("Profile API => Error");
+        throw new Error("Failed to fetch profile info");
+    }
+}
+
+// Function to handle profile updates
+export const updateProfile = async (userId, userData) => {
+    console.log("Update => API ");
+
+    try {
+        const response = await api.put(`/customer/profile/${userId}`, userData); // API call for updating profile
+        console.log("Update => " + response.data);
+        return response.data;
+    } catch (error) {
+
+        console.log("Update => API Error ");
+        throw new Error(error.response?.data?.message || "Failed to update profile");
+    }
+};
+
 
 
 // Weekly Menu List Function

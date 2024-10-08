@@ -69,7 +69,7 @@ export default function History() {
   };
 
   return (
-    <View style={{ backgroundColor: "#fff" }}>
+    <View style={{ backgroundColor: "#fff", paddingBottom: 50 }}>
       <Spinner
         visible={loading}
         textContent={"Loading..."}
