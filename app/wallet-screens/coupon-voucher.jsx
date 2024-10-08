@@ -43,13 +43,13 @@ export default function CouponVoucher() {
       >
         {/* Header Navigation Icon */}
         <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={28} color={Colors.VALENTINE_RED} />
+          <Ionicons name="arrow-back" size={28} color={Colors.EAGLE_GREEN} />
         </TouchableOpacity>
         {/* Header Navigation Text */}
         <Text
           style={{
             fontSize: 16,
-            fontFamily: "openSans-semiBold",
+            fontFamily: "poppins-semiBold",
             marginLeft: 10,
           }}
         >
@@ -89,7 +89,7 @@ export default function CouponVoucher() {
         name={"BEST OFFERS FOR YOU"}
         color={Colors.BOULDER}
         fontSize={12}
-        fontFamily={"openSans-bold"}
+        fontFamily={"poppins-bold"}
       />
 
       {/* Voucher Card */}
@@ -115,7 +115,7 @@ export default function CouponVoucher() {
             style={{
               width: "86%",
               fontSize: 16,
-              fontFamily: "openSans-semiBold",
+              fontFamily: "poppins-semiBold",
               marginLeft: 10,
               textAlign: "justify",
             }}
@@ -127,7 +127,7 @@ export default function CouponVoucher() {
         <Text
           style={{
             fontSize: 10,
-            fontFamily: "openSans",
+            fontFamily: "poppins",
             color: Colors.PALATINATE_BLUE,
             paddingHorizontal: 15,
             marginVertical: 5,
@@ -167,7 +167,7 @@ export default function CouponVoucher() {
           <Text
             style={{
               fontSize: 16,
-              fontFamily: "openSans-semiBold",
+              fontFamily: "poppins-semiBold",
               color: Colors.PALATINATE_BLUE,
               textAlign: "center",
             }}
@@ -183,10 +183,10 @@ export default function CouponVoucher() {
 const styles = StyleSheet.create({
   searchTxt: {
     fontSize: 16,
-    fontFamily: "openSans",
+    fontFamily: "poppins",
   },
   voucherTxt: {
     fontSize: 12,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
   },
 });

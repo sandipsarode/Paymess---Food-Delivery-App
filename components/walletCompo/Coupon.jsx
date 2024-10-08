@@ -34,7 +34,7 @@ export default function Coupon({ visible, onClose }) {
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: "openSans-bold",
+                fontFamily: "poppins-bold",
               }}
             >
               ‘HUNGRY50’
@@ -42,7 +42,7 @@ export default function Coupon({ visible, onClose }) {
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: "openSans",
+                fontFamily: "poppins",
               }}
             >
               applied
@@ -51,7 +51,7 @@ export default function Coupon({ visible, onClose }) {
           <Text
             style={{
               fontSize: 22,
-              fontFamily: "openSans-bold",
+              fontFamily: "poppins-bold",
               textAlign: "center",
               marginVertical: 10,
             }}
@@ -61,7 +61,7 @@ export default function Coupon({ visible, onClose }) {
           <Text
             style={{
               fontSize: 14,
-              fontFamily: "openSans",
+              fontFamily: "poppins",
             }}
           >
             with this coupon code
@@ -69,8 +69,8 @@ export default function Coupon({ visible, onClose }) {
           <Text
             style={{
               fontSize: 16,
-              fontFamily: "openSans-bold",
-              color: Colors.VALENTINE_RED,
+              fontFamily: "poppins-bold",
+              color: Colors.EAGLE_GREEN,
               marginTop: 35,
             }}
           >

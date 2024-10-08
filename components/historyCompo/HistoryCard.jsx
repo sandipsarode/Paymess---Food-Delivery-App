@@ -142,12 +142,12 @@ const styles = StyleSheet.create({
   },
   foodName: {
     fontSize: 15,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     textAlign: "justify",
   },
   location: {
     fontSize: 14,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     color: Colors.BOULDER,
   },
   icon: {
@@ -166,13 +166,13 @@ const styles = StyleSheet.create({
     padding: 3,
     borderRadius: 8,
     marginHorizontal: 5,
-    backgroundColor: Colors.VALENTINE_RED,
+    backgroundColor: Colors.EAGLE_GREEN,
     justifyContent: "center",
   },
   btnText: {
     color: "#fff",
     fontSize: 15,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
   },
   reorderButton: {
     flexDirection: "row",
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     color: Colors.BOULDER,
   },
 });

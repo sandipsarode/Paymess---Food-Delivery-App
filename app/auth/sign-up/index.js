@@ -127,14 +127,14 @@ export default function SignUp() {
                         onPress={handleSignUp}
                         style={[styles.btn, {
                             padding: 10,
-                            backgroundColor: Colors.VALENTINE_RED,
+                            backgroundColor: Colors.EAGLE_GREEN,
                         }]}
                     >
                         <Text
                             style={{
                                 color: 'white',
                                 textAlign: "center",
-                                fontFamily: 'openSans-extraBold'
+                                fontFamily: 'poppins-extraBold'
                             }}
                         >
                             Sign Up
@@ -158,9 +158,9 @@ const styles = StyleSheet.create({
     },
     txt: {
         margin: 5,
-        color: Colors.VALENTINE_RED,
+        color: Colors.EAGLE_GREEN,
         fontSize: 17,
-        fontFamily: 'openSans-bold'
+        fontFamily: 'poppins-bold'
     },
     input: {
         padding: 10,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: Colors.BOULDER,
-        fontFamily: "openSans-bold",
+        fontFamily: "poppins-bold",
     },
     btn: {
         borderRadius: 20,

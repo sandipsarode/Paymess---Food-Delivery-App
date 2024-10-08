@@ -27,7 +27,7 @@ export default function SignIn() {
             const response = await logIn(credentials);
             await AsyncStorage.setItem('userToken', response.token);
             // Alert.alert('Success', 'Logged in successfully!');
-            router.replace('/explore');
+            router.replace('/home');
         } catch (error) {
             Alert.alert('Error', error.message || 'Failed to log in');
         } finally {
@@ -46,7 +46,7 @@ export default function SignIn() {
                 <Image source={require('./../../../assets/images/logo2.png')}
                     style={{
                         width: '100%',
-                        height: 350,
+                        height: 330,
                         resizeMode: 'contain'
                     }}
                 />
@@ -55,16 +55,16 @@ export default function SignIn() {
                     {/* Header lines of the App */}
                     <Text style={{
                         fontSize: 20,
-                        fontFamily: 'openSans-extraBold',
+                        fontFamily: 'poppins-extraBold',
                         marginBottom: 10
                     }}>Welcome Back, Foodie!</Text>
                     <Text style={{
                         fontSize: 17,
-                        fontFamily: 'openSans-bold'
+                        fontFamily: 'poppins-bold'
                     }}>Your Gateway to </Text>
                     <Text style={{
                         fontSize: 17,
-                        fontFamily: 'openSans-bold'
+                        fontFamily: 'poppins-bold'
                     }}>Delightful Dining and Delivery</Text>
 
                     {/* Log in or Sign Up Divider */}
@@ -100,14 +100,14 @@ export default function SignIn() {
                         onPress={handleLogIn}
                         style={[styles.btn, {
                             padding: 10,
-                            backgroundColor: Colors.VALENTINE_RED,
+                            backgroundColor: Colors.EAGLE_GREEN,
                         }]}
                     >
                         <Text
                             style={{
                                 color: 'white',
                                 textAlign: "center",
-                                fontFamily: 'openSans-extraBold'
+                                fontFamily: 'poppins-extraBold'
                             }}
                         >
                             Log In
@@ -125,7 +125,7 @@ export default function SignIn() {
                             style={{
                                 color: Colors.BOULDER,
                                 textAlign: "center",
-                                fontFamily: 'openSans-extraBold'
+                                fontFamily: 'poppins-extraBold'
                             }}
                         >
                             Forgot Password ?
@@ -137,16 +137,16 @@ export default function SignIn() {
                         onPress={() => router.push('/auth/sign-up')}
                         style={[styles.btn, {
                             padding: 8,
-                            borderColor: Colors.VALENTINE_RED,
+                            borderColor: Colors.EAGLE_GREEN,
                             borderWidth: 3,
                             marginTop: 25
                         }]}
                     >
                         <Text
                             style={{
-                                color: Colors.VALENTINE_RED,
+                                color: Colors.EAGLE_GREEN,
                                 textAlign: "center",
-                                fontFamily: 'openSans-extraBold'
+                                fontFamily: 'poppins-extraBold'
                             }}
                         >
                             Sign Up
@@ -161,7 +161,7 @@ export default function SignIn() {
 // StyleSheet
 const styles = StyleSheet.create({
     container: {
-        padding: 40
+        padding: 30
     },
     line: {
         width: 115,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         margin: 5,
         color: Colors.BOULDER,
         fontSize: 12,
-        fontFamily: 'openSans-bold'
+        fontFamily: 'poppins-bold'
     },
     input: {
         padding: 10,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: Colors.BOULDER,
-        fontFamily: "openSans-bold",
+        fontFamily: "poppins-bold",
     },
     btn: {
         borderRadius: 20,

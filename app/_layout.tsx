@@ -21,13 +21,12 @@ export default function RootLayout() {
 
   // Specify the required fonts in the app
   useFonts({
-    roboto: require("./../assets/fonts/Roboto-Medium.ttf"),
-    pacifico: require("./../assets/fonts/Pacifico-Regular.ttf"),
-    openSans: require("./../assets/fonts/OpenSans-Regular.ttf"),
-    "openSans-light": require("./../assets/fonts/OpenSans-Light.ttf"),
-    "openSans-semiBold": require("./../assets/fonts/OpenSans-SemiBold.ttf"),
-    "openSans-bold": require("./../assets/fonts/OpenSans-Bold.ttf"),
-    "openSans-extraBold": require("./../assets/fonts/OpenSans-ExtraBold.ttf"),
+    poppins: require("./../assets/fonts/Poppins-Regular.ttf"),
+    "poppins-light": require("./../assets/fonts/Poppins-Light.ttf"),
+    "poppins-medium": require("./../assets/fonts/Poppins-Medium.ttf"),
+    "poppins-semiBold": require("./../assets/fonts/Poppins-SemiBold.ttf"),
+    "poppins-bold": require("./../assets/fonts/Poppins-Bold.ttf"),
+    "poppins-extraBold": require("./../assets/fonts/Poppins-ExtraBold.ttf"),
   });
 
   return (
@@ -36,9 +35,9 @@ export default function RootLayout() {
       {isAuthenticated ? (
         <>
           <Stack.Screen name="index" />
-          <Stack.Screen name="tabs/explore" />
+          <Stack.Screen name="tabs/home" />
+          <Stack.Screen name="tabs/menu" />
           <Stack.Screen name="tabs/wallet" />
-          <Stack.Screen name="tabs/history" />
         </>
       ) : (
         <>

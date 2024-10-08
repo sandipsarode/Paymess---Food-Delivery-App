@@ -3,14 +3,12 @@ import { View, StyleSheet, ScrollView } from "react-native";
 
 // Importing Profile and Search Bar Components
 import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
-import SearchBar from "./../../components/commonComponents/SearchBar";
 
 // Importing Different Components Section of Page
-import WeeklySchedule from "../../components/exploreCompo/WeeklySchedule";
-import OurPackages from "../../components/exploreCompo/OurPackages";
-import AppDescriptionSec from "../../components/exploreCompo/AppDescriptionSec";
+import OurPackages from "../../components/homeCompo/OurPackages";
+import AppDescriptionSec from "../../components/homeCompo/AppDescriptionSec";
 
-export default function Explore() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -18,12 +16,6 @@ export default function Explore() {
         <View style={styles.header}>
           <HeaderAddressProfileBar />
         </View>
-
-        {/* Search Bar Section */}
-        {/* <SearchBar /> */}
-
-        {/* Weekly Schedule Section */}
-        <WeeklySchedule />
 
         {/* Our Packages Section */}
         <OurPackages />

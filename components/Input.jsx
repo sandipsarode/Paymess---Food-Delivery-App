@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: Colors.BOULDER,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
     color: "black",
   },
 });

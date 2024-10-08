@@ -29,7 +29,7 @@ export default function PaidAmount() {
           alignItems: "center",
         }}
       >
-        <Ionicons name="arrow-back" size={28} color={Colors.VALENTINE_RED} />
+        <Ionicons name="arrow-back" size={28} color={Colors.EAGLE_GREEN} />
       </TouchableOpacity>
 
       {/* Transaction Description */}
@@ -45,7 +45,7 @@ export default function PaidAmount() {
         <Text
           style={{
             fontSize: 28,
-            fontFamily: "openSans-bold",
+            fontFamily: "poppins-bold",
           }}
         >
           ₹ 300
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   paymentTxt: {
     fontSize: 12,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
     color: Colors.BOULDER,
     textAlign: "center",
   },
@@ -182,16 +182,16 @@ const styles = StyleSheet.create({
   },
   menuTitle: {
     fontSize: 22,
-    fontFamily: "pacifico",
-    color: Colors.VALENTINE_RED,
+    fontFamily: "poppins-extraBold",
+    color: Colors.EAGLE_GREEN,
   },
   menuPrice: {
     fontSize: 18,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
   },
   menuItem: {
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     marginTop: 5,
   },
 });

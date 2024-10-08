@@ -30,7 +30,7 @@ export default function CouponCardSec() {
           <MaterialCommunityIcons
             name="tag-plus"
             size={25}
-            color={Colors.VALENTINE_RED}
+            color={Colors.EAGLE_GREEN}
           />
           <Text style={styles.contentHead}>Coupons</Text>
         </View>
@@ -55,7 +55,7 @@ export default function CouponCardSec() {
             <Text
               style={{
                 fontSize: 12,
-                fontFamily: "openSans",
+                fontFamily: "poppins",
               }}
             >
               Add ₹2000 to get ₹50 extra with
@@ -63,7 +63,7 @@ export default function CouponCardSec() {
             <Text
               style={{
                 fontSize: 12,
-                fontFamily: "openSans-bold",
+                fontFamily: "poppins-bold",
               }}
             >
               HUNGRY50
@@ -76,7 +76,7 @@ export default function CouponCardSec() {
             style={{
               height: 26,
               marginLeft: "auto",
-              backgroundColor: Colors.VALENTINE_RED,
+              backgroundColor: Colors.EAGLE_GREEN,
               paddingTop: 5,
               paddingHorizontal: 20,
               borderRadius: 15,
@@ -86,7 +86,7 @@ export default function CouponCardSec() {
               style={{
                 fontSize: 12,
                 color: "#fff",
-                fontFamily: "openSans-semiBold",
+                fontFamily: "poppins-semiBold",
               }}
             >
               APPLY
@@ -106,7 +106,7 @@ export default function CouponCardSec() {
             },
           ]}
         >
-          <Ionicons name="card" size={25} color={Colors.VALENTINE_RED} />
+          <Ionicons name="card" size={25} color={Colors.EAGLE_GREEN} />
           <Text style={styles.contentHead}>View all Voucher Coupons</Text>
         </TouchableOpacity>
       </View>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   contentHead: {
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     marginLeft: 10,
   },
   lineDvd: {

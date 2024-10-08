@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch, placeHolder }) {
 
   return (
     <View style={styles.searchContainer}>
-      <Ionicons name="search" size={20} color={Colors.VALENTINE_RED} />
+      <Ionicons name="search" size={20} color={Colors.EAGLE_GREEN} />
       <TextInput
         style={styles.searchInput}
         placeholder={placeHolder}
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginLeft: 10,
-    fontFamily: "openSans",
+    fontFamily: "poppins",
     fontSize: 16,
   },
 });

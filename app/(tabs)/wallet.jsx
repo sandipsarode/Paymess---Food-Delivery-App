@@ -38,8 +38,8 @@ export default function Wallet() {
           <Text
             style={{
               fontSize: 22,
-              fontFamily: "openSans-extraBold",
-              color: Colors.VALENTINE_RED,
+              fontFamily: "poppins-extraBold",
+              color: Colors.EAGLE_GREEN,
               letterSpacing: 5,
               textAlign: "center",
               marginTop: 25,
@@ -61,7 +61,7 @@ export default function Wallet() {
         name={"Transaction"}
         color={Colors.BOULDER}
         fontSize={12}
-        fontFamily={"openSans-bold"}
+        fontFamily={"poppins-bold"}
       />
 
       {/* Card according to transaction */}

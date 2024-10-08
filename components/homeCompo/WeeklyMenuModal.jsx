@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   dayTitle: {
     fontSize: 38,
-    fontFamily: "pacifico",
-    color: Colors.VALENTINE_RED,
+    fontFamily: "poppins-extraBold",
+    color: Colors.EAGLE_GREEN,
     textDecorationLine: "underline",
   },
   dayImage: {
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
   },
   mealTitle: {
     fontSize: 24,
-    fontFamily: "pacifico",
-    color: Colors.VALENTINE_RED,
+    fontFamily: "poppins-extraBold",
+    color: Colors.EAGLE_GREEN,
     marginBottom: 5,
   },
   // Veg & NonVeg Button
@@ -184,12 +184,12 @@ const styles = StyleSheet.create({
   },
   foodTypeText: {
     fontSize: 18,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
   },
   divider: {
     width: "100%",
     height: 1,
-    backgroundColor: Colors.VALENTINE_RED,
+    backgroundColor: Colors.EAGLE_GREEN,
     marginBottom: 10,
   },
   dishesContainer: {
@@ -200,21 +200,21 @@ const styles = StyleSheet.create({
     // width: "50%",
     fontSize: 16,
     color: "#fff",
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     marginVertical: 3,
   },
   doneButton: {
     margin: 20,
     paddingVertical: 8,
     paddingHorizontal: 25,
-    backgroundColor: "#ff4444",
+    backgroundColor: Colors.EAGLE_GREEN,
     borderRadius: 12,
     marginBottom: 50,
   },
   doneButtonText: {
     color: "white",
     fontSize: 20,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
   },
 });
 

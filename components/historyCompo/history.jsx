@@ -95,7 +95,7 @@ export default function History() {
         name={"History"}
         color={Colors.BOULDER}
         fontSize={12}
-        fontFamily={"openSans-bold"}
+        fontFamily={"poppins-bold"}
       />
 
       <ScrollView>

@@ -20,6 +20,12 @@ export const Colors = {
   BGCOLORMENUTOP: "#141414",
   BGCOLORMENUBOTTOM: "#282828",
 
+  JUNGLE_GREEN: "#15B392",
+  Ocean_Green: "#54C392",
+  MALACHITE_GREEN: "#73EC8B",
+  Mindaro: "#D2FF72",
+  EAGLE_GREEN: "#00425A",
+
   // Color Code of App ends here
   light: {
     text: "#11181C",

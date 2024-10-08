@@ -13,12 +13,12 @@ export default function HeaderAddressProfileBar() {
   const router = useRouter();
   return (
     <View style={styles.alignment}>
-      <Ionicons name="location-sharp" size={35} color={Colors.VALENTINE_RED} />
+      <Ionicons name="location-sharp" size={35} color={Colors.EAGLE_GREEN} />
       <View>
         <Text
           style={{
             fontSize: 21,
-            fontFamily: "openSans-semiBold",
+            fontFamily: "poppins-semiBold",
           }}
         >
           Home
@@ -26,7 +26,7 @@ export default function HeaderAddressProfileBar() {
         <Text
           style={{
             fontSize: 12,
-            fontFamily: "openSans",
+            fontFamily: "poppins",
           }}
         >
           Hanuman Nagar, Sharda Colony, Gondia
@@ -40,7 +40,7 @@ export default function HeaderAddressProfileBar() {
         <Ionicons
           name="person-circle-outline"
           size={35}
-          color={Colors.VALENTINE_RED}
+          color={Colors.EAGLE_GREEN}
         />
       </TouchableOpacity>
     </View>

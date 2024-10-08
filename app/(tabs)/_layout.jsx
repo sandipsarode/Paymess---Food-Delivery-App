@@ -14,7 +14,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors.REDDISH_ORANGE,
+        tabBarActiveTintColor: Colors.EAGLE_GREEN,
 
         tabBarStyle: {
           height: 60,
@@ -27,31 +27,31 @@ export default function TabLayout() {
           justifyContent: "center",
         },
         tabBarLabelStyle: {
-          fontFamily: "openSans-bold",
+          fontFamily: "poppins-bold",
           fontSize: 12,
           marginLeft: -35,
         },
       }}
     >
-      {/* Explore Tab */}
+      {/* Home Tab */}
       <Tabs.Screen
-        name="explore"
+        name="home"
         options={{
-          tabBarLabel: "Explore",
+          tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="explore" size={30} color={color} />
           ),
         }}
       />
 
-      {/* History Tab */}
+      {/* Menu Tab */}
       <Tabs.Screen
-        name="history"
+        name="menu"
         options={{
-          tabBarLabel: "History",
+          tabBarLabel: "Menu",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="clipboard-text-clock"
+              name="silverware-fork-knife"
               size={30}
               color={color}
             />

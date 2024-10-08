@@ -24,13 +24,13 @@ export default function AddAmountSec() {
           <MaterialCommunityIcons
             name="wallet"
             size={25}
-            color={Colors.VALENTINE_RED}
+            color={Colors.EAGLE_GREEN}
           />
           <Text style={styles.contentHead}>Available Balance</Text>
           <Text
             style={{
               fontSize: 16,
-              fontFamily: "openSans-semiBold",
+              fontFamily: "poppins-semiBold",
               marginLeft: "auto",
             }}
           >
@@ -43,7 +43,7 @@ export default function AddAmountSec() {
           placeholder="₹ Enter Amount"
           style={{
             fontSize: 20,
-            fontFamily: "openSans",
+            fontFamily: "poppins",
             padding: 10,
             paddingVertical: 12,
             backgroundColor: "#fff",
@@ -73,7 +73,7 @@ export default function AddAmountSec() {
             styles.alignment,
             styles.btn,
             {
-              backgroundColor: Colors.SEA,
+              backgroundColor: Colors.EAGLE_GREEN,
             },
           ]}
         >
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   contentHead: {
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     marginLeft: 10,
   },
   btn: {

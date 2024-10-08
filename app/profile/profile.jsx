@@ -369,7 +369,6 @@ export default function Profile() {
       text: "Address Book",
       size: 20,
     },
-    { icon: Ionicons, name: "language", text: "Choose Language", size: 23 },
     { icon: MaterialIcons, name: "info-outline", text: "About", size: 25 },
     {
       icon: MaterialCommunityIcons,
@@ -377,7 +376,6 @@ export default function Profile() {
       text: "Help",
       size: 25,
     },
-    { icon: MaterialIcons, name: "settings", text: "Settings", size: 25 },
     { icon: MaterialIcons, name: "logout", text: "Log Out", size: 25 },
   ];
 
@@ -385,7 +383,7 @@ export default function Profile() {
     <View style={styles.container}>
       {/* Arrow for back to main page */}
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={28} color={Colors.VALENTINE_RED} />
+        <Ionicons name="arrow-back" size={28} color={Colors.EAGLE_GREEN} />
       </TouchableOpacity>
 
       {/* Profile */}
@@ -401,7 +399,7 @@ export default function Profile() {
           onPress={() => router.push("/profile/updateProfile")}
         >
           {/* Icon for Profile */}
-          <FontAwesome5 name="edit" size={28} color={Colors.VALENTINE_RED} />
+          <FontAwesome5 name="edit" size={28} color={Colors.EAGLE_GREEN} />
         </TouchableOpacity>
       </View>
 
@@ -430,14 +428,14 @@ export default function Profile() {
               <option.icon
                 name={option.name}
                 size={option.size}
-                color={Colors.VALENTINE_RED}
+                color={Colors.EAGLE_GREEN}
               />
             </View>
             <Text style={styles.optionText}>{option.text}</Text>
             <MaterialIcons
               name="arrow-forward-ios"
               size={20}
-              color={Colors.VALENTINE_RED}
+              color={Colors.EAGLE_GREEN}
               style={styles.optionArrow}
             />
           </TouchableOpacity>
@@ -449,7 +447,7 @@ export default function Profile() {
         <View style={styles.loadingOverlay}>
           <ActivityIndicator
             size="large"
-            color={Colors.VALENTINE_RED}
+            color={Colors.EAGLE_GREEN}
             overlayColor="rgba(0, 0, 0, 0.7)"
           />
         </View>
@@ -492,22 +490,22 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
     marginLeft: 15,
   },
   updateOptionTxt: {
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     marginLeft: 15,
   },
   currencyIcon: {
     textAlign: "center",
-    backgroundColor: Colors.SEA,
+    backgroundColor: Colors.EAGLE_GREEN,
     color: "#fff",
     fontSize: 38,
   },
   walletAmount: {
-    backgroundColor: Colors.SEA,
+    backgroundColor: Colors.EAGLE_GREEN,
     paddingHorizontal: 12,
     paddingVertical: 5,
     borderRadius: 10,
@@ -515,7 +513,7 @@ const styles = StyleSheet.create({
   },
   walletText: {
     fontSize: 18,
-    fontFamily: "openSans-bold",
+    fontFamily: "poppins-bold",
     color: "#fff",
   },
   editIcon: {
@@ -550,7 +548,7 @@ const styles = StyleSheet.create({
   optionText: {
     flex: 1,
     fontSize: 16,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
     color: "#333",
   },
   optionArrow: {

@@ -122,7 +122,7 @@ export default function TransactionHistory() {
 // StyleSheet
 const styles = StyleSheet.create({
   dateText: {
-    fontFamily: "openSans",
+    fontFamily: "poppins",
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
@@ -145,11 +145,11 @@ const styles = StyleSheet.create({
   },
   transTxt: {
     fontSize: 18,
-    fontFamily: "openSans-semiBold",
+    fontFamily: "poppins-semiBold",
   },
   timeText: {
     fontSize: 12,
-    fontFamily: "openSans-light",
+    fontFamily: "poppins-light",
   },
   transactionAmountContainer: {
     marginLeft: "auto",
@@ -157,6 +157,6 @@ const styles = StyleSheet.create({
   },
   balanceText: {
     fontSize: 10.5,
-    fontFamily: "openSans-light",
+    fontFamily: "poppins-light",
   },
 });

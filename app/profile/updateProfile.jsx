@@ -524,7 +524,7 @@ export default function UpdateProfile() {
             styles.btn,
             {
               padding: 10,
-              backgroundColor: Colors.VALENTINE_RED,
+              backgroundColor: Colors.EAGLE_GREEN,
             },
           ]}
           onPress={handleSaveProfile} // Call the function to update profile
@@ -533,7 +533,7 @@ export default function UpdateProfile() {
             style={{
               color: "white",
               textAlign: "center",
-              fontFamily: "openSans-extraBold",
+              fontFamily: "poppins-extraBold",
               fontSize: 18,
             }}
           >
@@ -546,7 +546,7 @@ export default function UpdateProfile() {
           <View style={styles.loadingOverlay}>
             <ActivityIndicator
               size="large"
-              color={Colors.VALENTINE_RED}
+              color={Colors.EAGLE_GREEN}
               overlayColor="rgba(0, 0, 0, 0.7)"
             />
           </View>

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 21,
-    // fontFamily: "roboto",
+    fontFamily: "poppins-bold",
     marginBottom: -100,
   },
 });
