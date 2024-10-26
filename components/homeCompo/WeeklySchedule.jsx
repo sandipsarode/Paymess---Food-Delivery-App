@@ -29,7 +29,6 @@ import React, { useState } from "react";
 // import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import WeeklyMenuModal from "./WeeklyMenuModal";
 import { getMenuByDay } from "../../app/services/api";
-import SearchBar from "../commonComponents/SearchBar";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const WeeklySchedule = () => {
