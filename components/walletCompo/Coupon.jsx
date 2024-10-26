@@ -1,8 +1,11 @@
 import { View, Text, Modal, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 
-import Ionicons from "@expo/vector-icons/Ionicons";
+// Importing Color Code
 import { Colors } from "../../constants/Colors";
+
+// Importing the icons from Expo-Icons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Coupon({ visible, onClose }) {
   // Coupon Timer for 2sec
@@ -10,8 +13,8 @@ export default function Coupon({ visible, onClose }) {
     if (visible) {
       const timer = setTimeout(() => {
         onClose();
-      }, 2000); // Close after 2 seconds
-      return () => clearTimeout(timer); // Cleanup the timer if the component unmounts
+      }, 2000);
+      return () => clearTimeout(timer);
     }
   }, [visible, onClose]);
 

@@ -1,19 +1,21 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native";
-
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
-import { useRouter } from "expo-router";
+
+// Importing Icon from ExpoIcons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function HeaderAddressProfileBar() {
   const router = useRouter();
+
   return (
     <View style={styles.alignment}>
+      {/* Location Icon */}
       <Ionicons name="location-sharp" size={35} color={Colors.EAGLE_GREEN} />
+      {/* Home Address Text */}
       <View>
         <Text
           style={{
@@ -33,6 +35,7 @@ export default function HeaderAddressProfileBar() {
         </Text>
       </View>
 
+      {/* Profile Icon */}
       <TouchableOpacity
         onPress={() => router.push("/profile/profile")}
         style={{ marginLeft: "auto" }}

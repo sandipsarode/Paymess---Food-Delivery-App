@@ -5,10 +5,9 @@ import { LinearGradient } from "expo-linear-gradient";
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
 
-// Importing the Components
+// Importing Different Components Section of Page
 import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
 import Divider from "../../components/commonComponents/Divider";
-
 import CouponCardSec from "./../../components/walletCompo/CouponCardSec";
 import AddAmountSec from "./../../components/walletCompo/AddAmountSec";
 import TransactionHistory from "./../../components/walletCompo/TransactionHistory";
@@ -37,8 +36,8 @@ export default function Wallet() {
           {/* Header Title */}
           <Text
             style={{
-              fontSize: 22,
-              fontFamily: "poppins-extraBold",
+              fontSize: 21,
+              fontFamily: "poppins-bold",
               color: Colors.EAGLE_GREEN,
               letterSpacing: 5,
               textAlign: "center",

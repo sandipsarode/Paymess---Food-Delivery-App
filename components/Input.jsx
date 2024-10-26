@@ -46,12 +46,14 @@
 // });
 
 import { View, StyleSheet, TextInput } from "react-native";
+
+// Importing Color Code
 import { Colors } from "./../constants/Colors";
 
 export default function Input({
   containerStyle,
-  value, // Take value from props
-  onChangeText, // Handler for updating the state
+  value,
+  onChangeText,
   placeholder,
   keyboardType,
   maxLength,
@@ -59,13 +61,12 @@ export default function Input({
 }) {
   return (
     <View style={[styles.container, containerStyle]}>
-      {/* Input fields for the Sign In */}
       <TextInput
         {...props}
         style={styles.input}
         placeholder={placeholder}
-        value={value} // Display the current value
-        onChangeText={onChangeText} // Call the handler to update the state
+        value={value}
+        onChangeText={onChangeText}
         keyboardType={keyboardType}
         maxLength={maxLength}
       />

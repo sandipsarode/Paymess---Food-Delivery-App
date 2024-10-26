@@ -9,11 +9,11 @@ import {
 import React from "react";
 import { useRouter } from "expo-router";
 
-// Importing Icons from Expo-icons
-import Ionicons from "@expo/vector-icons/Ionicons";
-
 // Importing ColorCode
 import { Colors } from "../../constants/Colors";
+
+// Importing Icons from Expo-icons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 // Importing Icons from LocalStorage
 import icon from "./../../assets/images/googlePay.png";

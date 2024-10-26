@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
+import { useRouter } from "expo-router";
 
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
-import { useRouter } from "expo-router";
 
 // Importing Icons from Expo-icons
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";

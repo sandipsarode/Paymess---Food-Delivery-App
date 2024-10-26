@@ -1,11 +1,9 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
-// Importing Profile and Search Bar Components
-import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
-
 // Importing Different Components Section of Page
-import WeeklySchedule from "../../components/homeCompo/WeeklySchedule";
+import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
+import WeeklyMenuCard from "./../../components/menuCompo/WeeklyMenuCard";
 
 export default function Menu() {
   return (
@@ -16,8 +14,8 @@ export default function Menu() {
           <HeaderAddressProfileBar />
         </View>
 
-        {/* Weekly Schedule Section */}
-        <WeeklySchedule />
+        {/* Weekly Menu Cards Section */}
+        <WeeklyMenuCard />
       </ScrollView>
     </View>
   );
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   scrollViewContent: {
-    paddingBottom: 30, // Adds space at the bottom
+    paddingBottom: 30,
   },
 
   // Header Address Bar

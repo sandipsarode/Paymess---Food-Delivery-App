@@ -2,6 +2,7 @@ import { View, Text, TextInput } from "react-native";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
+// Importing Color Code
 import { Colors } from "./../../constants/Colors";
 
 // Importing Icons from Expo-icons

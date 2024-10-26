@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet, Animated, TextInput } from "react-native";
+import { View, StyleSheet, Animated, TextInput } from "react-native";
 import React, { useRef, useState } from "react";
+
+// Importing Color Code
 import { Colors } from "../constants/Colors";
 
 export default function CustomInput({

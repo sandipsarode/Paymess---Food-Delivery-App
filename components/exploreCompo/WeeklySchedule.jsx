@@ -6,12 +6,16 @@ import {
   StyleSheet,
   Alert,
   FlatList,
-  ActivityIndicator,
 } from "react-native";
-// import React, { useState } from "react";
+import React, { useState } from "react";
+import Spinner from "react-native-loading-spinner-overlay";
+import { getMenuByDay } from "../../app/services/api";
 
+// Importing COlor Code
 import { Colors } from "../../constants/Colors";
-// import WeeklyMenuModal from "./WeeklyMenuModal";
+
+// Importing Different Components
+import WeeklyMenuModal from "./WeeklyMenuModal";
 import Divider from "../commonComponents/Divider";
 
 // Static mapping of day names to images
@@ -25,58 +29,32 @@ const dayImages = {
   Saturday: require("./../../assets/images/week-7.png"),
 };
 
-import React, { useState } from "react";
-// import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import WeeklyMenuModal from "./WeeklyMenuModal";
-import { getMenuByDay } from "../../app/services/api";
-import SearchBar from "../commonComponents/SearchBar";
-import Spinner from "react-native-loading-spinner-overlay";
-
 const WeeklySchedule = () => {
-  // User select any day of week
+  // State variables for the menu
   const [selectedDay, setSelectedDay] = useState(null);
   const [menu, setMenu] = useState();
-  // const [mealType, setMealType] = useState("Breakfast");
+  // State variable to handle the modal
   const [isModalVisible, setModalVisible] = useState(false);
 
-  // ----------------------------------------
-  const [filteredDays, setFilteredDays] = useState(Object.keys(dayImages)); // List of days to display
-  const [loading, setLoading] = useState(false);
-
-  const handleSearch = (searchText) => {
-    // Filter days based on search input
-    const filtered = Object.keys(dayImages).filter((day) =>
-      day.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredDays(filtered); // Update the filtered list
-  };
-  // ----------------------------------------
-
+  // Function to handle the day menu
   const handleDayPress = async (day) => {
     setLoading(true);
     setSelectedDay(day);
-    console.log("1");
 
     try {
-      console.log("2");
       const fetchedMenu = await getMenuByDay();
-      console.log("3");
 
+      // Filter menu by day and set the filtered menu
       const filteredMenu = fetchedMenu.filter(
         (item) => item.day_of_week === day
-      ); // Filter menu by day
-      setMenu(filteredMenu); // Set filtered menu in the state
-
-      console.log("4");
+      );
+      setMenu(filteredMenu);
     } catch (error) {
-      console.log("Error");
       Alert.alert("Error", error.message || "Failed to sign up");
     }
     setLoading(false);
-    setModalVisible(true); // Show modal after fetching menu
+    setModalVisible(true);
   };
-
-  // {filteredMenu.length > 0 ? (
 
   return (
     <View>
@@ -93,7 +71,6 @@ const WeeklySchedule = () => {
         {/* Render filtered days */}
         <FlatList
           data={filteredDays}
-          // horizontal={true}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(day) => day}
           renderItem={({ item: day }) => (
@@ -135,7 +112,6 @@ const WeeklySchedule = () => {
             selectedDay={selectedDay}
             dayImages={dayImages}
             menu={menu}
-            // mealType={mealType}
           />
         )}
       </View>
@@ -151,7 +127,6 @@ const styles = StyleSheet.create({
     padding: 25,
     paddingVertical: -10,
   },
-
   scheduleItem: {
     alignItems: "center",
     marginRight: 15,
@@ -164,6 +139,11 @@ const styles = StyleSheet.create({
   scheduleImageStyle: {
     borderRadius: 30,
   },
+  scheduleText: {
+    fontFamily: "poppins-bold",
+    textAlign: "center",
+    color: "#fff",
+  },
   scheduleTextTitle: {
     paddingHorizontal: 15,
     fontSize: 16,
@@ -172,11 +152,6 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 30,
     marginTop: 10,
-  },
-  scheduleText: {
-    fontFamily: "poppins-bold",
-    textAlign: "center",
-    color: "#fff",
   },
   scheduleMealContainer: {
     marginTop: 35,

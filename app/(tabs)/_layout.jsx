@@ -1,12 +1,12 @@
 import React from "react";
 import { Tabs } from "expo-router";
 
+// Importing Color Code
+import { Colors } from "./../../constants/Colors";
+
 // Importing Icons from Expo-icons
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
-// Importing Color Code
-import { Colors } from "./../../constants/Colors";
 
 export default function TabLayout() {
   return (

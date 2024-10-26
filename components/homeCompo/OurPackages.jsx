@@ -1,15 +1,22 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { ImageBackground } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
+// Importing Color Code
 import { Colors } from "../../constants/Colors";
+
+// Importing the Components
 import Divider from "../commonComponents/Divider";
 
 export default function OurPackages() {
   return (
     <View>
+      {/* Background Image for the Our Packages Section */}
       <ImageBackground
         source={require("../../assets/images/OurPackageBG.png")}
         style={styles.packagesBackground}
@@ -21,7 +28,7 @@ export default function OurPackages() {
             name={"Our Packages"}
             color={Colors.EAGLE_GREEN}
             fontSize={21}
-            fontFamily={"poppins-extraBold"}
+            fontFamily={"poppins-bold"}
           />
 
           {/* Veg and Non-Veg Toggle */}
@@ -107,8 +114,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   packageType: {
-    fontSize: 20,
-    fontFamily: "poppins-extraBold",
+    fontSize: 18,
+    fontFamily: "poppins-bold",
     textAlign: "center",
     color: Colors.EAGLE_GREEN,
     marginBottom: 5,

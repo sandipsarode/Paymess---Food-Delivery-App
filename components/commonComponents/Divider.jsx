@@ -6,6 +6,7 @@ export default function Divider({ name, color, fontSize, fontFamily }) {
     <View
       style={{
         flexDirection: "row",
+        justifyContent: "center",
         alignItems: "center",
         width: "90%",
         marginHorizontal: "auto",

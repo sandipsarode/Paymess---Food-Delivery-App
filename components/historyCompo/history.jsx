@@ -1,10 +1,12 @@
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getOrderHistory } from "./../services/api"; // Import the function to fetch order history
 import Spinner from "react-native-loading-spinner-overlay";
 
 // Importing Color Code
 import { Colors } from "./../../constants/Colors";
+
+// Import the function to fetch order history
+import { getOrderHistory } from "./../services/api";
 
 // Importing Header Profile Address Bar Component
 import HeaderAddressProfileBar from "./../../components/commonComponents/HeaderAddressProfileBar";
@@ -13,8 +15,8 @@ import SearchBar from "./../../components/commonComponents/SearchBar";
 import HistoryCard from "./../../components/historyCompo/HistoryCard";
 
 export default function History() {
-  const [history, setHistory] = useState([]); // All fetched history data
-  const [filteredHistory, setFilteredHistory] = useState([]); // Filtered history data
+  const [history, setHistory] = useState([]);
+  const [filteredHistory, setFilteredHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,8 +26,8 @@ export default function History() {
       setLoading(true);
       try {
         const response = await getOrderHistory();
-        setHistory(response.orders); // Set fetched orders
-        setFilteredHistory(response.orders); // Initialize filteredHistory with all orders
+        setHistory(response.orders);
+        setFilteredHistory(response.orders);
       } catch (error) {
         setError("Failed to load history");
       } finally {
@@ -43,33 +45,33 @@ export default function History() {
   // Function to format a date to "DD MMM YYYY" for comparison
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0"); // Ensure day is 2 digits
+    const day = date.getDate().toString().padStart(2, "0");
     const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
-    return `${day} ${month} ${year}`; // Return the date in "DD MMM YYYY" format
+    return `${day} ${month} ${year}`;
   };
 
   // Function to handle real-time search and filtering
   const handleSearch = (searchText) => {
     if (!searchText) {
-      setFilteredHistory(history); // Show all history if search is cleared
+      setFilteredHistory(history);
       return;
     }
 
-    const searchDate = searchText.trim(); // Trim input to avoid spaces
+    const searchDate = searchText.trim();
 
     // Filter the history to match the exact date in "DD MMM YYYY"
     const filteredData = history.filter((item) => {
-      const orderDate = formatDate(item.created_at); // Format the order date to "DD MMM YYYY"
-
-      return orderDate.includes(searchDate); // Check if searchText is part of the formatted date
+      const orderDate = formatDate(item.created_at);
+      return orderDate.includes(searchDate);
     });
 
-    setFilteredHistory(filteredData); // Update filteredHistory with the search result
+    setFilteredHistory(filteredData);
   };
 
   return (
     <View style={{ backgroundColor: "#fff", paddingBottom: 50 }}>
+      {/* Spinner for the loader */}
       <Spinner
         visible={loading}
         textContent={"Loading..."}
@@ -85,7 +87,7 @@ export default function History() {
       {/* Search Bar Section */}
       <View style={{ width: "90%", marginHorizontal: "auto" }}>
         <SearchBar
-          onSearch={handleSearch} // Pass the search handler to the SearchBar
+          onSearch={handleSearch}
           placeHolder={"Search (ex. 25 Sep 2024)"}
         />
       </View>
@@ -102,7 +104,7 @@ export default function History() {
         {/* Render the History Cards */}
         {filteredHistory.length > 0 ? (
           filteredHistory.map((item, index) => (
-            <HistoryCard key={index} data={item} /> // Pass the filtered history data to HistoryCard
+            <HistoryCard key={index} data={item} />
           ))
         ) : (
           <Text>No history available for the selected date.</Text>

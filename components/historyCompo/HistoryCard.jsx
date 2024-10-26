@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+
+// Importing Color Code
 import { Colors } from "./../../constants/Colors";
+
+// Importing icons from Expo-Icons
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 
+// Importing API Base URL
 import { API } from "./../../app/services/api";
 
 // Function to format the date
@@ -30,7 +35,7 @@ function formatDate(createdDate) {
   const newFormat = hour >= 12 ? "PM" : "AM";
 
   // Convert 24-hour format to 12-hour format
-  hour = hour % 12 || 12; // Converts 0 to 12 and keeps other hours intact
+  hour = hour % 12 || 12;
 
   const day = t.getUTCDate().toString().padStart(2, "0");
   const month = months[t.getUTCMonth()];
@@ -47,7 +52,7 @@ export default function HistoryCard({ data }) {
     return null;
   }
 
-  const item = order_items[0]; // Assuming all order_items have the same food_item for display
+  const item = order_items[0];
 
   return (
     <View style={styles.card}>
@@ -108,6 +113,7 @@ export default function HistoryCard({ data }) {
 }
 
 const styles = StyleSheet.create({
+  // History Card
   card: {
     marginTop: 10,
     paddingTop: 10,
@@ -121,6 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 10,
   },
+  // Food Image
   imageContainer: {
     width: "25%",
     height: 80,
@@ -135,6 +142,7 @@ const styles = StyleSheet.create({
     height: "80%",
     resizeMode: "cover",
   },
+  // Food Details
   detailsContainer: {
     width: "75%",
     paddingLeft: 10,
@@ -155,6 +163,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
   },
+  // Delivered and Reorder Buttons
   foodTypeContainer: {
     flexDirection: "row",
     marginTop: 10,
@@ -180,6 +189,7 @@ const styles = StyleSheet.create({
   reorderText: {
     marginLeft: 5,
   },
+  // Time Details
   timeContainer: {
     elevation: 3,
     paddingVertical: 6,
@@ -195,26 +205,3 @@ const styles = StyleSheet.create({
     color: Colors.BOULDER,
   },
 });
-
-// console.log("createdDate => " + createdDate);
-
-// const date = createdDate[8] + createdDate[9];
-// console.log("date => " + createdDate[8] + createdDate[9]);
-// const month = parseInt(createdDate[5] + createdDate[6]);
-// console.log("month => " + month);
-// const year =
-//   createdDate[0] + createdDate[1] + createdDate[2] + createdDate[3];
-// console.log(
-//   "year => " +
-//     createdDate[0] +
-//     createdDate[1] +
-//     createdDate[2] +
-//     createdDate[3]
-// );
-
-// const hours = createdDate[11] + createdDate[12];
-// console.log("hours => " + hours);
-// const minutes = createdDate[14] + createdDate[15];
-// console.log("minutes => " + minutes);
-// const ampm = hours >= 12 ? "pm" : "am";
-// console.log("minutes => " + ampm);

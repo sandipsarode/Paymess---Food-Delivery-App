@@ -9,8 +9,12 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+
+// Importing Color Code
 import { Colors } from "../../constants/Colors";
+
+// Importing icons from Expo-icons
+import { LinearGradient } from "expo-linear-gradient";
 
 const WeeklyMenuModal = ({
   modalVisible,
@@ -43,6 +47,7 @@ const WeeklyMenuModal = ({
       transparent={true}
       {...props}
     >
+      {/* Set the properties for Status Bar */}
       <StatusBar
         backgroundColor={Colors.BGCOLORMENUBOTTOM}
         barStyle="dark-content"
@@ -57,6 +62,7 @@ const WeeklyMenuModal = ({
         style={styles.modalContainer}
       >
         <View style={styles.modalContent}>
+          {/* Card Day title and Food Image */}
           <Text style={styles.dayTitle}>{selectedDay}</Text>
           {selectedDay && (
             <Image source={dayImages[selectedDay]} style={styles.dayImage} />
@@ -133,6 +139,7 @@ const WeeklyMenuModal = ({
 };
 
 const styles = StyleSheet.create({
+  // Modal Container
   modalContainer: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginHorizontal: "auto",
   },
+  // Card Day title and Food Image
   dayTitle: {
     fontSize: 38,
     fontFamily: "poppins-extraBold",
@@ -157,17 +165,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     marginVertical: 30,
-  },
-  mealSection: {
-    width: "100%",
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  mealTitle: {
-    fontSize: 24,
-    fontFamily: "poppins-extraBold",
-    color: Colors.EAGLE_GREEN,
-    marginBottom: 5,
   },
   // Veg & NonVeg Button
   foodTypeContainer: {
@@ -186,23 +183,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "poppins-semiBold",
   },
+  // Meal Section
+  mealSection: {
+    width: "100%",
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  mealTitle: {
+    fontSize: 24,
+    fontFamily: "poppins-extraBold",
+    color: Colors.EAGLE_GREEN,
+    marginBottom: 5,
+  },
   divider: {
     width: "100%",
     height: 1,
     backgroundColor: Colors.EAGLE_GREEN,
     marginBottom: 10,
   },
+  // Food Item
   dishesContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
   dishItem: {
-    // width: "50%",
     fontSize: 16,
     color: "#fff",
     fontFamily: "poppins-semiBold",
     marginVertical: 3,
   },
+  // Done Button
   doneButton: {
     margin: 20,
     paddingVertical: 8,

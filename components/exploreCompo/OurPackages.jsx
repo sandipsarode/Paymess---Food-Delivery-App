@@ -1,10 +1,15 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { ImageBackground } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
+// Importing Color Code
 import { Colors } from "../../constants/Colors";
+
 import Divider from "../commonComponents/Divider";
 
 export default function OurPackages() {

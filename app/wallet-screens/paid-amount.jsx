@@ -2,11 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
 
-// Importing Expo Icons
-import Ionicons from "@expo/vector-icons/Ionicons";
-
 // Importing ColorCode
 import { Colors } from "../../constants/Colors";
+
+// Importing Expo Icons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function PaidAmount() {
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function PaidAmount() {
       >
         <Text
           style={{
-            fontSize: 28,
+            fontSize: 23,
             fontFamily: "poppins-bold",
           }}
         >
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     color: Colors.BOULDER,
     textAlign: "center",
   },
+  // Menu Card
   menuHead: {
     display: "flex",
     flexDirection: "row",
@@ -181,8 +182,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   menuTitle: {
-    fontSize: 22,
-    fontFamily: "poppins-extraBold",
+    fontSize: 21,
+    fontFamily: "poppins-bold",
     color: Colors.EAGLE_GREEN,
   },
   menuPrice: {

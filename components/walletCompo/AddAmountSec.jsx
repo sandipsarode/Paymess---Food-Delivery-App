@@ -1,14 +1,20 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
+
+// Importing Color Code
+import { Colors } from "../../constants/Colors";
 
 // Importing Icons from Expo-icons
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-// Importing Color Code
-import { Colors } from "../../constants/Colors";
-import { TouchableOpacity } from "react-native";
-
 export default function AddAmountSec() {
+  // Function to add money
   const AddAmount = ({ amount }) => (
     <View style={styles.addAmount}>
       <Text style={styles.amountText}>{amount}</Text>
@@ -128,6 +134,6 @@ const styles = StyleSheet.create({
   },
   amountText: {
     fontSize: 16,
-    fontFamily: "openSans-light",
+    fontFamily: "poppins-light",
   },
 });

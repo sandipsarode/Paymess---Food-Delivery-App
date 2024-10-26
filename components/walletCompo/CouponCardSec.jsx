@@ -1,17 +1,16 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { useRouter } from "expo-router";
+
+// Importing Color Code
+import { Colors } from "../../constants/Colors";
 
 // Importing Icons from Expo-icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-// Importing Color Code
-import { Colors } from "../../constants/Colors";
-import { TouchableOpacity } from "react-native";
-
 // Importing the Components
 import Coupon from "./Coupon";
-import { useRouter } from "expo-router";
 
 export default function CouponCardSec() {
   const router = useRouter();

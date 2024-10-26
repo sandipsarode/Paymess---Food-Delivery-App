@@ -1,10 +1,8 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 
-// Importing Profile and Search Bar Components
-import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
-
 // Importing Different Components Section of Page
+import HeaderAddressProfileBar from "../../components/commonComponents/HeaderAddressProfileBar";
 import OurPackages from "../../components/homeCompo/OurPackages";
 import AppDescriptionSec from "../../components/homeCompo/AppDescriptionSec";
 
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   scrollViewContent: {
-    paddingBottom: 30, // Adds space at the bottom
+    paddingBottom: 30,
   },
 
   // Header Address Bar

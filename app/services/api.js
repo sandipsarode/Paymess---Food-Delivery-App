@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const API_URL = 'https://62a8-103-102-144-169.ngrok-free.app/api'; // Replace with your backend URL
-export const API = 'https://62a8-103-102-144-169.ngrok-free.app'; // Replace with your backend URL
+export const API_URL = 'https://3700-103-102-144-171.ngrok-free.app/api'; // Replace backend URL
+export const API = 'https://3700-103-102-144-171.ngrok-free.app'; // Replace backend URL
 
 // API variable
 const api = axios.create({
@@ -22,7 +22,7 @@ api.interceptors.request.use(async (config) => {
     (error) => Promise.reject(error)
 );
 
-// Function to handle user sign-up
+// Function to handle user Sign-Up
 export const signUp = async (userData) => {
     try {
         const response = await axios.post(`${API_URL}/customer`, userData);
@@ -32,7 +32,7 @@ export const signUp = async (userData) => {
     }
 };
 
-// Log In
+// Function to handle user Log In
 export const logIn = async (credentials) => {
     try {
         const response = await axios.post(`${API_URL}/customer/login`, credentials);
@@ -44,7 +44,7 @@ export const logIn = async (credentials) => {
     }
 };
 
-// Logout Function
+// Function to handle user Logout
 export const logOut = async () => {
     try {
         const response = await api.post("/customer/logout");
@@ -54,44 +54,46 @@ export const logOut = async () => {
     }
 };
 
-// Profile Function
+// Function to display the user profile
 export const profileInfo = async () => {
-    console.log("Profile API 1");
-
     try {
         const response = await api.get("/customer/profile/show")
-        console.log("Profile API => " + JSON.stringify(response.data));
         return response.data
     } catch (error) {
-        console.log("Profile API => Error");
         throw new Error("Failed to fetch profile info");
     }
 }
 
-// Function to handle profile updates
+// Function to handle user profile updates
 export const updateProfile = async (userId, userData) => {
-    console.log("Update => API ");
-
     try {
-        const response = await api.put(`/customer/profile/${userId}`, userData); // API call for updating profile
-        console.log("Update => " + response.data);
+        const response = await api.put(`/customer/profile/${userId}`, userData);
         return response.data;
     } catch (error) {
-
-        console.log("Update => API Error ");
         throw new Error(error.response?.data?.message || "Failed to update profile");
     }
 };
 
-
-
-// Weekly Menu List Function
-export const getMenuByDay = async () => {
-    console.log("Fetching Weekly Menu...");
-
+// Function to handle user profile picture updates
+export const updateProfilePicture = async (userId, formData) => {
+    console.log("userData => " + JSON.stringify(formData));
     try {
-        const response = await api.get('/customer/weekly-menus/all');  // Use `api.get` here
-        console.log("Fetched Menu: ", response.data);  // Log actual response data
+        const response = await api.put(`/customer/profile/picture/${userId}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error in updateProfilePicture:", error);
+        throw new Error(error.response?.data?.message || "Failed to update profile");
+    }
+};
+
+// Function to fetch the Weekly Menu List
+export const getMenu = async (userId) => {
+    try {
+        const response = await api.get(`/customer/weekly-menus/${userId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching menu:", error.response?.data?.message || error.message);
@@ -99,22 +101,15 @@ export const getMenuByDay = async () => {
     }
 };
 
-
-// Fetch Order History
+// Function to fetch Order History
 export const getOrderHistory = async () => {
-    console.log("API => " + 1);
-
     try {
-        const response = await api.get('customer/orders/all'); // Replace with your actual endpoint
-        console.log("API => " + JSON.stringify(response.data));
+        const response = await api.get('customer/orders/all');
         return response.data;
     } catch (error) {
-        console.log("API => error 1");
         console.error('Error fetching order history:', error.response?.data?.message || error.message);
-        console.log("API => error 2");
         throw new Error('Failed to fetch order history');
     }
 };
-
 
 export default api;
