@@ -9,7 +9,7 @@ import Coupon from "../components/walletCompo/Coupon";
 // import CouponVoucher from "../components/wallet/CouponVoucher";
 import Home from "./(tabs)/home";
 import Menu from "./(tabs)/menu";
-// import CheckoutPage from "./menu/checkoutPage";
+import CheckoutPage from "./menu/checkoutPage";
 
 export default function Index() {
   // Display the Splash Screen based on condition
@@ -28,12 +28,13 @@ export default function Index() {
       }}
     >
       {/* Show Splash Screen */}
-      {isShowSplash ? <SplashScreen /> : <Home />}
-      {/* <Home /> */}
+      {/* {isShowSplash ? <SplashScreen /> : <SignIn />} */}
+      <Home />
       {/* <Menu /> */}
       {/* <Wallet /> */}
       {/* <Coupon /> */}
       {/* <CouponVoucher /> */}
+      {/* <CheckoutPage /> */}
       {/* <CheckoutPage /> */}
     </View>
   );

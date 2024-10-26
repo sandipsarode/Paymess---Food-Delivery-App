@@ -1,5 +1,5 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const API_URL = 'https://3700-103-102-144-171.ngrok-free.app/api'; // Replace backend URL
 export const API = 'https://3700-103-102-144-171.ngrok-free.app'; // Replace backend URL
@@ -9,16 +9,17 @@ const api = axios.create({
     baseURL: API_URL,
     // method: 'POST',
     timeout: 5000,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { "Content-Type": "application/json" },
 });
 
-api.interceptors.request.use(async (config) => {
-    const token = await AsyncStorage.getItem('userToken');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-},
+api.interceptors.request.use(
+    async (config) => {
+        const token = await AsyncStorage.getItem("userToken");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
     (error) => Promise.reject(error)
 );
 
@@ -28,7 +29,7 @@ export const signUp = async (userData) => {
         const response = await axios.post(`${API_URL}/customer`, userData);
         return response.data;
     } catch (error) {
-        throw new Error(error.response?.data?.message || 'Failed to sign up');
+        throw new Error(error.response?.data?.message || "Failed to sign up");
     }
 };
 
@@ -36,11 +37,11 @@ export const signUp = async (userData) => {
 export const logIn = async (credentials) => {
     try {
         const response = await axios.post(`${API_URL}/customer/login`, credentials);
-        console.log('Login successful');
+        console.log("Login successful");
         return response.data;
     } catch (error) {
-        console.error('Login failed', error);
-        setError('Invalid credentials, please try again.');
+        console.error("Login failed", error);
+        setError("Invalid credentials, please try again.");
     }
 };
 
@@ -101,14 +102,34 @@ export const getMenu = async (userId) => {
     }
 };
 
-// Function to fetch Order History
+// Fetch Order History
 export const getOrderHistory = async () => {
+    console.log("API => " + 1);
+
     try {
-        const response = await api.get('customer/orders/all');
+        const response = await api.get("customer/orders/all"); // Replace with your actual endpoint
+        console.log("API => " + JSON.stringify(response.data));
         return response.data;
     } catch (error) {
-        console.error('Error fetching order history:', error.response?.data?.message || error.message);
-        throw new Error('Failed to fetch order history');
+        console.log("API => error 1");
+        console.error(
+            "Error fetching order history:",
+            error.response?.data?.message || error.message
+        );
+        console.log("API => error 2");
+        throw new Error("Failed to fetch order history");
+    }
+};
+
+// Function to fetch packages from the backend
+export const getPackages = async () => {
+    try {
+        const response = await api.get("/customer/subscription-plans/all"); // Backend API to get packages
+        return response.data; // Return the response data
+    } catch (error) {
+        throw new Error(
+            error.response?.data?.message || "Failed to fetch packages"
+        );
     }
 };
 
