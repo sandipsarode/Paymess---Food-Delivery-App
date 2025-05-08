@@ -18,7 +18,7 @@ export default function CheckoutPage() {
   });
 
   const [isPaymentCompleted, setIsPaymentCompleted] = useState(false); // State to control the modal visibility
-  const { price } = useLocalSearchParams();
+  const { selectedCategory, price } = useLocalSearchParams();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export default function CheckoutPage() {
     setTimeout(() => {
       setIsPaymentCompleted(false);
       // You can also navigate to another page after payment is completed
+      navigation.goBack();
     }, 2000); // Close modal after 2 seconds
   };
 
@@ -50,7 +51,7 @@ export default function CheckoutPage() {
           style={styles.logo}
         />
         <View>
-          <Text style={styles.planName}>{selectedPlan.name} Plan</Text>
+          <Text style={styles.planName}>{selectedCategory} Plan</Text>
         </View>
         <Text style={styles.planPrice}>₹{price}</Text>
       </View>

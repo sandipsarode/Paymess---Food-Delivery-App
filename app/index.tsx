@@ -10,6 +10,7 @@ import Coupon from "../components/walletCompo/Coupon";
 import Home from "./(tabs)/home";
 import Menu from "./(tabs)/menu";
 import CheckoutPage from "./menu/checkoutPage";
+import History from "./history/history";
 
 export default function Index() {
   // Display the Splash Screen based on condition
@@ -30,6 +31,7 @@ export default function Index() {
       {/* Show Splash Screen */}
       {/* {isShowSplash ? <SplashScreen /> : <SignIn />} */}
       <Home />
+      {/* <History /> */}
       {/* <Menu /> */}
       {/* <Wallet /> */}
       {/* <Coupon /> */}

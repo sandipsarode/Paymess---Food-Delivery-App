@@ -154,6 +154,8 @@
 //   },
 // });
 
+// =========================================================================================================================================
+
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -164,10 +166,14 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { Colors } from "./../../constants/Colors";
 
 // Importing the function to fetch all the menu
-import { getMenu, profileInfo } from "./../../app/services/api";
+import {
+  getMenu,
+  profileInfo,
+  getSubscriptionDetails,
+} from "./../../app/services/api";
 
-// Impoting components
-import Divider from "../commonComponents/Divider";
+// Importing components
+import UnsubscribeModal from "./UnsubscribeModal";
 
 // Static mapping of day names to images and gradient colors
 const dayData = [
@@ -211,7 +217,12 @@ const dayData = [
 export default function WeeklyMenuCard() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [menu, setMenu] = useState();
+  const [menu, setMenu] = useState([]);
+  const [subscriptionDetail, setSubscriptionDetail] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleApply = () => setModalVisible(true);
+  const handleClose = () => setModalVisible(false);
 
   useEffect(() => {
     setLoading(true);
@@ -225,7 +236,9 @@ export default function WeeklyMenuCard() {
         const menuData = await getMenu(userId);
         console.log("Menu -> " + JSON.stringify(menuData));
 
+        const subscription = await getSubscriptionDetails(userId);
         setMenu(menuData);
+        setSubscriptionDetail(subscription);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching menu:", error);
@@ -233,22 +246,30 @@ export default function WeeklyMenuCard() {
       }
     }
     fetchData();
+    // console.log("subscription -> " + JSON.stringify(subscriptionDetail));
   }, []);
 
   // Function to handle the day menu
   const handleDayMenu = (day, image) => {
-    // Filter the menu based on day
-    const filteredMenu = menu.filter(
-      (menuItem) => dayData[new Date(menuItem.day).getDay()].day === day
-    );
+    console.log("subscription -> " + subscriptionDetail);
 
-    console.log("filter -> " + JSON.stringify(filteredMenu));
+    if (subscriptionDetail[0]?.status === "active") {
+      // Added optional chaining for safety
+      // Filter the menu based on day
+      const filteredMenu = menu.filter(
+        (menuItem) => dayData[new Date(menuItem.day).getDay()].day === day
+      );
 
-    // Jump to the dayMenuCard when the day is matched
-    router.push({
-      pathname: "/menu/dayMenuCard",
-      params: { day, image, menu: JSON.stringify(filteredMenu) },
-    });
+      console.log("filter -> " + JSON.stringify(filteredMenu));
+
+      // Jump to the dayMenuCard when the day is matched
+      router.push({
+        pathname: "/menu/dayMenuCard",
+        params: { day, image, menu: JSON.stringify(filteredMenu) },
+      });
+    } else {
+      handleApply(); // Fixed the function call by adding parentheses
+    }
   };
 
   return (
@@ -288,6 +309,8 @@ export default function WeeklyMenuCard() {
         textStyle={{ color: "#FFF" }}
         overlayColor="rgba(0, 0, 0, 0.7)"
       />
+
+      <UnsubscribeModal visible={modalVisible} onClose={handleClose} />
     </View>
   );
 }
@@ -303,7 +326,7 @@ const styles = StyleSheet.create({
   dayWiseCard: {
     width: "90%",
     height: 120,
-    marginHorizontal: "auto",
+    alignSelf: "center", // Corrected centering of the card
     marginBottom: 15,
     borderRadius: 15,
     flexDirection: "row",
@@ -321,3 +344,195 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+// =========================================================================================================================================
+
+// import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+// import React, { useEffect, useState } from "react";
+// import { useRouter } from "expo-router";
+// import { LinearGradient } from "expo-linear-gradient";
+// import Spinner from "react-native-loading-spinner-overlay";
+
+// // Importing Color Code
+// import { Colors } from "./../../constants/Colors";
+
+// // Importing the function to fetch all the menu
+// import {
+//   getMenu,
+//   profileInfo,
+//   getSubscriptionDetails,
+// } from "./../../app/services/api";
+
+// // Importing components
+// import UnsubscribeModal from "./UnsubscribeModal";
+
+// // Static mapping of day names to images and gradient colors
+// const dayData = [
+//   {
+//     day: "Sunday",
+//     image: require("./../../assets/images/day1.png"),
+//     colors: ["#A5CAD2", "#758EB7"],
+//   },
+//   {
+//     day: "Monday",
+//     image: require("./../../assets/images/day2.png"),
+//     colors: ["#758EB7", "#A5CAD2"],
+//   },
+//   {
+//     day: "Tuesday",
+//     image: require("./../../assets/images/day3.png"),
+//     colors: ["#A5CAD2", "#758EB7"],
+//   },
+//   {
+//     day: "Wednesday",
+//     image: require("./../../assets/images/day4.png"),
+//     colors: ["#758EB7", "#A5CAD2"],
+//   },
+//   {
+//     day: "Thursday",
+//     image: require("./../../assets/images/day5.png"),
+//     colors: ["#A5CAD2", "#758EB7"],
+//   },
+//   {
+//     day: "Friday",
+//     image: require("./../../assets/images/day6.png"),
+//     colors: ["#758EB7", "#A5CAD2"],
+//   },
+//   {
+//     day: "Saturday",
+//     image: require("./../../assets/images/day7.png"),
+//     colors: ["#A5CAD2", "#758EB7"],
+//   },
+// ];
+
+// export default function WeeklyMenuCard() {
+//   const router = useRouter();
+//   const [loading, setLoading] = useState(false);
+//   const [menu, setMenu] = useState([]);
+//   // const [subscriptionDetail, setSubscriptionDetail] = useState([]);
+//   // const [modalVisible, setModalVisible] = useState(false);
+
+//   // const handleApply = () => setModalVisible(true);
+//   // const handleClose = () => setModalVisible(false);
+
+//   useEffect(() => {
+//     setLoading(true);
+
+//     // Fetch the data from backend
+//     async function fetchData() {
+//       try {
+//         const profile = await profileInfo();
+//         const userId = profile.addresses[0].user_id;
+
+//         const menuData = await getMenu(userId);
+//         console.log("Menu -> " + JSON.stringify(menuData));
+
+//         const subscription = await getSubscriptionDetails(userId);
+//         setMenu(menuData);
+//         setSubscriptionDetail(subscription);
+//         setLoading(false);
+//       } catch (error) {
+//         console.error("Error fetching menu:", error);
+//         setLoading(false);
+//       }
+//     }
+//     fetchData();
+//     // console.log("subscription -> " + JSON.stringify(subscriptionDetail));
+//   }, []);
+
+//   // Function to handle the day menu
+//   const handleDayMenu = (day, image) => {
+//     console.log("subscription -> " + subscriptionDetail);
+
+//     if (subscriptionDetail[0]?.status === "active") {
+//       // Added optional chaining for safety
+//       // Filter the menu based on day
+//       const filteredMenu = menu.filter(
+//         (menuItem) => dayData[new Date(menuItem.day).getDay()].day === day
+//       );
+
+//       console.log("filter -> " + JSON.stringify(filteredMenu));
+
+//       // Jump to the dayMenuCard when the day is matched
+//       router.push({
+//         pathname: "/menu/dayMenuCard",
+//         params: { day, image, menu: JSON.stringify(filteredMenu) },
+//       });
+//     }
+//     // else {
+//     //   handleApply(); // Fixed the function call by adding parentheses
+//     // }
+//   };
+
+//   return (
+//     <View>
+//       {/* Weekly Schedule Heading */}
+//       <Text style={styles.heading}>Weekly Schedule</Text>
+
+//       {/* Dynamically render day cards */}
+//       {dayData.map(({ day, image, colors }) => (
+//         <TouchableOpacity key={day} onPress={() => handleDayMenu(day, image)}>
+//           <LinearGradient
+//             colors={colors}
+//             start={{ x: 1, y: 0.5 }}
+//             end={{ x: 0, y: 1 }}
+//             style={styles.dayWiseCard}
+//           >
+//             {/* Conditional rendering based on the day Image and Text position */}
+//             {day === "Monday" || day === "Wednesday" || day === "Friday" ? (
+//               <>
+//                 <Text style={styles.txt}>{day}</Text>
+//                 <Image source={image} style={styles.img} />
+//               </>
+//             ) : (
+//               <>
+//                 <Image source={image} style={styles.img} />
+//                 <Text style={styles.txt}>{day}</Text>
+//               </>
+//             )}
+//           </LinearGradient>
+//         </TouchableOpacity>
+//       ))}
+
+//       {/* Loading Indicator */}
+//       <Spinner
+//         visible={loading}
+//         textContent={"Loading..."}
+//         textStyle={{ color: "#FFF" }}
+//         overlayColor="rgba(0, 0, 0, 0.7)"
+//       />
+
+//       {/* <UnsubscribeModal visible={modalVisible} onClose={handleClose} /> */}
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   heading: {
+//     color: Colors.EAGLE_GREEN,
+//     fontSize: 21,
+//     fontFamily: "poppins-bold",
+//     textAlign: "center",
+//     marginBottom: 10,
+//   },
+//   dayWiseCard: {
+//     width: "90%",
+//     height: 120,
+//     alignSelf: "center", // Corrected centering of the card
+//     marginBottom: 15,
+//     borderRadius: 15,
+//     flexDirection: "row",
+//     justifyContent: "space-around",
+//     alignItems: "center",
+//   },
+//   img: {
+//     width: "35%",
+//     height: "100%",
+//     resizeMode: "contain",
+//   },
+//   txt: {
+//     fontFamily: "poppins-bold",
+//     fontSize: 21,
+//     textAlign: "center",
+//   },
+// });

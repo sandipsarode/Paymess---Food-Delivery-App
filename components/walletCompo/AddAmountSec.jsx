@@ -5,21 +5,32 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
 
 // Importing Icons from Expo-icons
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
 
 export default function AddAmountSec() {
+  const router = useRouter();
+  const [price, setPrice] = useState();
+
   // Function to add money
   const AddAmount = ({ amount }) => (
     <View style={styles.addAmount}>
-      <Text style={styles.amountText}>{amount}</Text>
+      <Text style={styles.amountText}>+ {amount}</Text>
     </View>
   );
+
+  const handleCheckOutPage = () => {
+    router.push({
+      pathname: "/menu/checkoutPage",
+      params: { selectedCategory: "Add Money", price },
+    });
+  };
 
   return (
     <View>
@@ -47,6 +58,9 @@ export default function AddAmountSec() {
         {/* Money Input Box */}
         <TextInput
           placeholder="₹ Enter Amount"
+          value={price}
+          keyboardType="numeric"
+          onChangeText={setPrice}
           style={{
             fontSize: 20,
             fontFamily: "poppins",
@@ -66,8 +80,8 @@ export default function AddAmountSec() {
             { justifyContent: "space-evenly", marginTop: 14 },
           ]}
         >
-          {["+ 100", "+ 200", "+ 500", "+ 1000"].map((amount, index) => (
-            <TouchableOpacity>
+          {["100", "200", "500", "1000"].map((amount, index) => (
+            <TouchableOpacity onPress={() => setPrice(amount)}>
               <AddAmount key={index} amount={amount} />
             </TouchableOpacity>
           ))}
@@ -75,13 +89,16 @@ export default function AddAmountSec() {
 
         {/* Add Money Button */}
         <TouchableOpacity
+          onPress={() => handleCheckOutPage()}
           style={[
             styles.alignment,
             styles.btn,
             {
               backgroundColor: Colors.EAGLE_GREEN,
             },
+            !price && styles.disabledButton,
           ]}
+          disabled={!price}
         >
           <Text style={[styles.contentHead, { color: "#fff" }]}>Add Money</Text>
         </TouchableOpacity>
@@ -135,5 +152,8 @@ const styles = StyleSheet.create({
   amountText: {
     fontSize: 16,
     fontFamily: "poppins-light",
+  },
+  disabledButton: {
+    backgroundColor: "#999",
   },
 });

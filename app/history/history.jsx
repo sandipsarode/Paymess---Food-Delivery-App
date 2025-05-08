@@ -3,18 +3,19 @@ import React, { useEffect, useState } from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 
 // Importing Color Code
-import { Colors } from "./../../constants/Colors";
+import { Colors } from "../../constants/Colors";
 
 // Import the function to fetch order history
-import { getOrderHistory } from "./../services/api";
+import { getOrderHistory } from "../services/api";
 
 // Importing Header Profile Address Bar Component
-import HeaderAddressProfileBar from "./../../components/commonComponents/HeaderAddressProfileBar";
-import Divider from "./../../components/commonComponents/Divider";
-import SearchBar from "./../../components/commonComponents/SearchBar";
-import HistoryCard from "./../../components/historyCompo/HistoryCard";
+import Divider from "../../components/commonComponents/Divider";
+import SearchBar from "../../components/commonComponents/SearchBar";
+import HistoryCard from "../../components/historyCompo/HistoryCard";
+import { useNavigation } from "expo-router";
 
 export default function History() {
+  const navigation = useNavigation();
   const [history, setHistory] = useState([]);
   const [filteredHistory, setFilteredHistory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,10 +23,22 @@ export default function History() {
 
   // Fetch order history when the component is mounted
   useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTransparent: true,
+      headerTitle: "Your Orders",
+      headerStyle: {
+        backgroundColor: "transparent",
+      },
+      headerTintColor: Colors.EAGLE_GREEN,
+    });
+
     const fetchHistory = async () => {
       setLoading(true);
       try {
         const response = await getOrderHistory();
+        console.log("history -> " + JSON.stringify(response));
+
         setHistory(response.orders);
         setFilteredHistory(response.orders);
       } catch (error) {
@@ -58,11 +71,11 @@ export default function History() {
       return;
     }
 
-    const searchDate = searchText.trim();
+    const searchDate = searchText.trim().toLowerCase();
 
     // Filter the history to match the exact date in "DD MMM YYYY"
     const filteredData = history.filter((item) => {
-      const orderDate = formatDate(item.created_at);
+      const orderDate = formatDate(item.created_at).toLowerCase();
       return orderDate.includes(searchDate);
     });
 
@@ -70,7 +83,15 @@ export default function History() {
   };
 
   return (
-    <View style={{ backgroundColor: "#fff", paddingBottom: 50 }}>
+    <View
+      style={{
+        backgroundColor: "#fff",
+        paddingTop: 80,
+        paddingBottom: 50,
+        width: "100%",
+        height: "100%",
+      }}
+    >
       {/* Spinner for the loader */}
       <Spinner
         visible={loading}
@@ -78,11 +99,6 @@ export default function History() {
         textStyle={{ color: "#FFF" }}
         overlayColor="rgba(0, 0, 0, 0.7)"
       />
-
-      <View style={styles.alignment}>
-        {/* Profile Bar */}
-        <HeaderAddressProfileBar />
-      </View>
 
       {/* Search Bar Section */}
       <View style={{ width: "90%", marginHorizontal: "auto" }}>
@@ -107,7 +123,9 @@ export default function History() {
             <HistoryCard key={index} data={item} />
           ))
         ) : (
-          <Text>No history available for the selected date.</Text>
+          <Text style={styles.txt}>
+            No history available for the selected date.
+          </Text>
         )}
       </ScrollView>
     </View>
@@ -119,5 +137,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingTop: 40,
     paddingBottom: 15,
+  },
+  txt: {
+    width: "90%",
+    fontFamily: "poppins",
+    fontSize: 18,
+    paddingHorizontal: 25,
+    textAlign: "center",
+    marginTop: 30,
+    marginHorizontal: "auto",
   },
 });

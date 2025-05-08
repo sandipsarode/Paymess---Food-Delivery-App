@@ -345,7 +345,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   Alert,
   ActivityIndicator,
@@ -353,11 +352,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRouter } from "expo-router";
 import { Colors } from "../../constants/Colors";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import Input from "../../components/Input";
-import { API, profileInfo, updateProfile } from "./../services/api"; // Import updateProfile API function
+import { profileInfo, updateProfile } from "./../services/api"; // Import updateProfile API function
 import UpdateProfilePicture from "../../components/UpdateProfilePicture";
 
 export default function UpdateProfile() {
@@ -365,7 +363,6 @@ export default function UpdateProfile() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null); // State to store the user's ID
-  const [profilePicture, setProfilePicture] = useState(null); // State to store the user's ID
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -440,12 +437,20 @@ export default function UpdateProfile() {
   // };
 
   const handleSaveProfile = async () => {
-    setLoading(true);
     if (!userId) {
       Alert.alert("Error", "User ID is missing. Cannot update profile.");
       return;
     }
 
+    if (!name || !phone || !email) {
+      Alert.alert(
+        "Error",
+        "Fill all the missing field. Cannot update profile."
+      );
+      return;
+    }
+
+    setLoading(true);
     const updatedProfileData = {
       name,
       phone,

@@ -581,6 +581,7 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+  StatusBar,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -598,7 +599,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 // Importing API functions
-import { API, logOut, profileInfo } from "./../services/api";
+import { API, logOut, profileInfo, sendAddress } from "./../services/api";
 import UpdateProfilePicture from "../../components/UpdateProfilePicture";
 
 export default function Profile() {
@@ -610,6 +611,7 @@ export default function Profile() {
 
   // State variable to store all the profile information
   const [profileData, setProfileData] = useState({});
+  const [user_id, setUserId] = useState(null);
 
   // Variable for the different profile options
   const isFocused = useIsFocused();
@@ -620,6 +622,8 @@ export default function Profile() {
       setLoading(true);
       try {
         const response = await profileInfo();
+        setUserId(response.id);
+
         if (response && typeof response === "object") {
           setProfileData(response);
         } else {
@@ -632,8 +636,6 @@ export default function Profile() {
         setLoading(false);
       }
     };
-
-    console.log("profileData -> " + JSON.stringify(profileData));
 
     if (isFocused) {
       fetchProfileInfo();
@@ -659,6 +661,14 @@ export default function Profile() {
   const handleOptionPress = (option) => {
     if (option.text === "Log Out") {
       handleLogOut();
+    } else if (option.text === "Your Orders") {
+      router.push("/history/history");
+    } else if (option.text === "Address Book") {
+      // router.push("/profile/addAddress");
+      router.push({
+        pathname: "/profile/addressBook",
+        params: { user_id },
+      });
     } else if (option.route) {
       router.push(option.route);
     } else {
@@ -695,6 +705,7 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       {/* Navigation Icon to back to Home */}
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         <Ionicons name="arrow-back" size={28} color={Colors.EAGLE_GREEN} />

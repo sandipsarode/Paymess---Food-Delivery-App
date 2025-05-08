@@ -6,6 +6,8 @@ import { getPackages } from "./../../app/services/api";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
+import { Colors } from "./../../constants/Colors";
+
 export default function OurPackages() {
   const router = useRouter();
   const [packages, setPackages] = useState([]);
@@ -83,12 +85,15 @@ export default function OurPackages() {
 
     router.push({
       pathname: "/menu/checkoutPage",
-      params: { price },
+      params: { selectedCategory, price },
     });
   };
 
   return (
     <View style={styles.packageContainer}>
+      {/* Our Packages Heading */}
+      <Text style={styles.heading}>Our Packages</Text>
+
       {/* Category Selector (Regular, Special, Deluxe) */}
       <View style={styles.categoryContainer}>
         <TouchableOpacity
@@ -159,7 +164,7 @@ export default function OurPackages() {
                 ]}
                 onPress={() => {
                   setIsVeg((previousState) => !previousState);
-                  setSelectedFoodType(isVeg ? "Non Veg" : "Veg");
+                  setSelectedFoodType(isVeg ? "Non-Veg" : "Veg");
                 }}
               >
                 {/* "Non-Veg" or "Veg" text on opposite side */}
@@ -280,6 +285,13 @@ export default function OurPackages() {
 
 // Styles for the component
 const styles = StyleSheet.create({
+  heading: {
+    color: Colors.EAGLE_GREEN,
+    fontSize: 21,
+    fontFamily: "poppins-bold",
+    textAlign: "center",
+    marginBottom: 10,
+  },
   packageContainer: {
     flex: 1,
     justifyContent: "center",
@@ -406,16 +418,15 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   activeToggle: {
-    backgroundColor: "#F76C5E",
+    backgroundColor: "#fff",
   },
   inactiveToggle: {
-    backgroundColor: "#00C853",
+    backgroundColor: "#fff",
   },
   toggleBall: {
     width: 70,
     height: 30,
     borderRadius: 20,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
@@ -424,13 +435,15 @@ const styles = StyleSheet.create({
   },
   activeBall: {
     left: 0,
+    backgroundColor: "#00C853",
   },
   inactiveBall: {
     right: 0,
+    backgroundColor: "#F76C5E",
   },
   toggleBallText: {
     fontSize: 14,
-    color: "#000",
+    color: "#fff",
     fontWeight: "bold",
   },
   toggleTextContainer: {
@@ -444,7 +457,7 @@ const styles = StyleSheet.create({
   },
   oppositeText: {
     fontSize: 14,
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold",
   },
   vegText: {

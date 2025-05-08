@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const API_URL = 'https://3700-103-102-144-171.ngrok-free.app/api'; // Replace backend URL
-export const API = 'https://3700-103-102-144-171.ngrok-free.app'; // Replace backend URL
+export const API_URL = 'https://d578-103-102-144-172.ngrok-free.app/api'; // Replace backend URL
+export const API = 'https://d578-103-102-144-172.ngrok-free.app'; // Replace backend URL
 
 // API variable
 const api = axios.create({
@@ -77,11 +77,13 @@ export const updateProfile = async (userId, userData) => {
 
 // Function to handle user profile picture updates
 export const updateProfilePicture = async (userId, formData) => {
-    console.log("userData => " + JSON.stringify(formData));
+    console.log("API =>", JSON.stringify(formData));
+
     try {
         const response = await api.put(`/customer/profile/picture/${userId}`, formData, {
             headers: {
-                "Content-Type": "multipart/form-data",
+                Accept: "application/json",
+                // Axios automatically determines the boundary for multipart data
             },
         });
         return response.data;
@@ -90,6 +92,27 @@ export const updateProfilePicture = async (userId, formData) => {
         throw new Error(error.response?.data?.message || "Failed to update profile");
     }
 };
+
+// Function to add the addresses of user
+export const showAddress = async (user_id) => {
+    try {
+        const response = await api.get(`customer/addresses/${user_id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Failed to send the address");
+    }
+};
+
+// Function to add the addresses of user
+export const sendAddress = async (addAddress) => {
+    try {
+        const response = await api.post("customer/addresses", addAddress);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Failed to send the address");
+    }
+};
+
 
 // Function to fetch the Weekly Menu List
 export const getMenu = async (userId) => {
@@ -102,12 +125,33 @@ export const getMenu = async (userId) => {
     }
 };
 
+// Function to send the selected food items based on day
+export const sendSelectedMenu = async (selectedData) => {
+    try {
+        const response = await api.post(`/customer/orders`, selectedData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Failed to save selected menu");
+    }
+};
+
+// Fetch the Subscription Details
+export const getSubscriptionDetails = async (userId) => {
+    try {
+        const response = await api.get(`/customer/customer-subscriptions/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching subscription:", error.response?.data?.message || error.message);
+        throw new Error("Failed to fetch subscription details");
+    }
+};
+
 // Fetch Order History
 export const getOrderHistory = async () => {
     console.log("API => " + 1);
 
     try {
-        const response = await api.get("customer/orders/all"); // Replace with your actual endpoint
+        const response = await api.get("customer/orders/all");
         console.log("API => " + JSON.stringify(response.data));
         return response.data;
     } catch (error) {

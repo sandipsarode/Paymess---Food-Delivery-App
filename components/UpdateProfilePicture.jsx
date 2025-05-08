@@ -187,7 +187,7 @@ export default function UpdateProfilePicture({
   closeModal,
   userId,
 }) {
-  const [profile_picture, setProfilePicture] = useState(null);
+  const [profile_picture, setProfilePicture] = useState("");
 
   // Function to open image picker
   const selectImage = async () => {
@@ -196,6 +196,7 @@ export default function UpdateProfilePicture({
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      allowsEditing: false,
     });
 
     if (!result.canceled) {
@@ -210,43 +211,29 @@ export default function UpdateProfilePicture({
       return;
     }
 
-    console.log("profile_picture => " + profile_picture);
+    const formData = new FormData();
+    const imageName = profile_picture.split("/").pop();
+    const fileType = imageName.split(".").pop();
 
-    // const formData = new FormData();
-    // formData.append("profile_picture", {
-    //   uri: profile_picture,
-    //   type: "image/jpeg",
-    //   name: "profile_picture.jpg",
-    // });
+    formData.append("profile_picture", {
+      uri: profile_picture,
+      name: imageName,
+      type: `image/${fileType === "jpg" ? "jpeg" : fileType}`,
+    });
 
-    // if (profile_picture) {
-    //   const imageName = profile_picture.split("/").pop(); // Extract image name from the URI
-    //   const fileType = imageName.split(".").pop(); // Get the file extension (e.g., jpg, png)
-
-    //   formData.append("profile_picture", {
-    //     uri: profile_picture,
-    //     name: imageName,
-    //     type: `image/${fileType}`, // Set the correct MIME type based on the file extension
-    //   });
+    // Log the content of formData
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: `, value);
     // }
 
-    const formData = new FormData();
-    formData.append("profile_picture", profile_picture);
+    console.log("formDate -> ", JSON.stringify(formData));
 
-    console.log("formData => " + JSON.stringify(formData));
     try {
       const response = await updateProfilePicture(userId, formData);
-
-      console.log("response => " + JSON.stringify(response));
       Alert.alert("Success", "Profile updated successfully.");
-
-      // Check if response status is OK
-      if (response.status === 200) {
-        closeModal(); // Close modal upon success
-      } else {
-        Alert.alert("Error", "Failed to update profile.");
-      }
+      closeModal(); // Call closeModal correctly
     } catch (error) {
+      console.error("An error occurred:", error);
       Alert.alert("An error occurred while updating profile:", error.message);
     }
   };

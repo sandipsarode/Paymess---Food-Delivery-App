@@ -236,9 +236,17 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import Checkbox from "expo-checkbox";
+import Spinner from "react-native-loading-spinner-overlay";
 
 // Importing Color Code
 import { Colors } from "../../constants/Colors";
+
+// Importing Expo Icons
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+// Importing the function from API
+import { sendSelectedMenu } from "./../services/api";
 
 export default function DayMenuCard() {
   const navigation = useNavigation();
@@ -249,10 +257,36 @@ export default function DayMenuCard() {
   // State for selected food type
   const [selectedFoodType, setSelectedFoodType] = useState("Veg");
   const [showFoodTypeButtons, setShowFoodTypeButtons] = useState(false);
+  // const [selectedItems, setSelectedItems] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
+  const [selectedItems, setSelectedItems] = useState({
+    Breakfast: [],
+    Lunch: [],
+    Dinner: [],
+  });
+
+  // useEffect(() => {
+  //   console.log("Menuuuuuuuuuu = " + menu);
+
+  //   navigation.setOptions({
+  //     headerShown: true,
+  //     headerTransparent: true,
+  //     headerTitle: "",
+  //     headerStyle: {
+  //       backgroundColor: "transparent",
+  //     },
+  //     headerTintColor: "#fff",
+  //   });
+
+  //   const hasNonVeg = Object.values(parsedMenu[0].plans[0].meals).some((meal) =>
+  //     Object.values(meal).flat().includes("Non-Veg Item")
+  //   );
+  //   setShowFoodTypeButtons(hasNonVeg);
+  // }, []);
   useEffect(() => {
-    console.log("Menu -> ", menu);
-    console.log("Parsed Menu -> ", parsedMenu[0].plans);
+    console.log("Menuuuuuuuuuu = " + menu);
 
     navigation.setOptions({
       headerShown: true,
@@ -264,27 +298,100 @@ export default function DayMenuCard() {
       headerTintColor: "#fff",
     });
 
-    // Determine if both Veg and Non-Veg options are available
-    const mealTypes = parsedMenu[0].plans[0].meals;
-    const hasNonVeg = Object.values(mealTypes).some((meal) =>
-      meal.some((item) => item === "Non-Veg Item")
+    const hasNonVeg = Object.values(parsedMenu[0].plans[0].meals).some((meal) =>
+      Object.values(meal).flat().includes("Non-Veg Item")
     );
     setShowFoodTypeButtons(hasNonVeg);
+
+    // Set the default selected item for 'sabji' in each meal type
+    const defaultSelectedItems = { Breakfast: [], Lunch: [], Dinner: [] };
+    Object.entries(parsedMenu[0].plans[0].meals).forEach(
+      ([mealType, foods]) => {
+        if (foods.sabji && foods.sabji.length > 0) {
+          defaultSelectedItems[mealType] = [foods.sabji[0]]; // Select the first 'sabji' item by default
+        }
+      }
+    );
+    setSelectedItems(defaultSelectedItems);
   }, []);
 
-  // Function to filter and render food items based on the selected food type
-  const renderFoods = (foods) => {
-    const filteredFoods = foods.filter((food) =>
-      selectedFoodType === "Veg" ? food !== "Non-Veg Item" : true
-    );
-
-    return filteredFoods.map((food, index) => (
-      <View key={index} style={styles.dishesContainer}>
-        <Text style={styles.dishItem}>✔️ {food}</Text>
-      </View>
-    ));
+  // Modify renderFoods to render checkboxes for 'sabji' items only
+  const renderFoods = (foods, mealType) => {
+    return Object.entries(foods).map(([key, foodItems], index) => {
+      if (key === "sabji") {
+        return foodItems.map((sabjiItem, sabjiIndex) => (
+          <View key={`sabji-${sabjiIndex}`} style={styles.foodItemContainer}>
+            <Checkbox
+              value={selectedItems[mealType].includes(sabjiItem)}
+              onValueChange={() => handleSelectItem(mealType, sabjiItem)}
+            />
+            <Text style={styles.dishItem}>{sabjiItem}</Text>
+          </View>
+        ));
+      } else {
+        return (
+          <View key={index} style={styles.foodItemContainer}>
+            <Ionicons
+              name="checkmark-circle"
+              size={21}
+              color={Colors.KELLY_GREEN}
+            />
+            <Text style={styles.dishItem}>{foodItems}</Text>
+          </View>
+        );
+      }
+    });
   };
 
+  // Function to toggle item selection
+  const handleSelectItem = (mealType, food) => {
+    setSelectedItems((prevSelectedItems) => ({
+      ...prevSelectedItems,
+      [mealType]: prevSelectedItems[mealType].includes(food)
+        ? prevSelectedItems[mealType].filter((item) => item !== food)
+        : [food], // Replace with only the selected item
+    }));
+  };
+
+  // Function to handle sending selected items to the backend
+  const handleSubmit = async () => {
+    // Iterate through selectedItems to find the meal types with selected food
+    console.log("Innnnnnnnnnnnn");
+    setLoading(true);
+
+    for (const [mealType, foodItems] of Object.entries(selectedItems)) {
+      if (foodItems.length > 0) {
+        // If there are selected items in this meal type
+        const selectedData = {
+          selected_food: foodItems,
+          day_of_week: parsedMenu[0].day, // assuming 'day' is provided as a date string from the params
+          meal_type: mealType,
+        };
+
+        console.log("selected_food: " + foodItems);
+        console.log("day_of_week: " + parsedMenu[0].day);
+        console.log("meal_type: " + mealType);
+
+        // Send data to the backend using the sendSelectedMenu function
+        try {
+          const response = await sendSelectedMenu(selectedData);
+          console.log("Response from backend:", response);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error sending data:", error);
+          Alert.alert(
+            "Error",
+            "Failed to send the selected food. Please try again."
+          );
+        }
+      }
+    }
+    router.back();
+  };
+
+  const hasSelectedItems = () => {
+    return selectedItems.Lunch.length > 0 || selectedItems.Dinner.length > 0;
+  };
   return (
     <View style={{ height: "100%" }}>
       <StatusBar
@@ -305,7 +412,6 @@ export default function DayMenuCard() {
             <Text style={styles.dayTitle}>{day}</Text>
             {image && <Image source={image} style={styles.dayImage} />}
 
-            {/* Conditionally Render Veg/Non-Veg Selector */}
             {showFoodTypeButtons && (
               <View style={styles.foodTypeContainer}>
                 <TouchableOpacity
@@ -347,29 +453,60 @@ export default function DayMenuCard() {
               </View>
             )}
 
-            {/* Render Meal Sections */}
             {Object.entries(parsedMenu[0].plans[0].meals).map(
               ([mealType, foods], index) => (
                 <View key={index} style={styles.mealSection}>
                   <Text style={styles.mealTitle}>{mealType}</Text>
                   <View style={styles.divider} />
 
-                  {/* Render List of Food Items for each Meal Type */}
-                  {renderFoods(foods)}
+                  <View style={styles.dishesContainer}>
+                    {renderFoods(foods, mealType)}
+                  </View>
                 </View>
               )
             )}
 
-            {/* Done Button */}
+            {/* {selectedItems && (
+              <TouchableOpacity
+                style={styles.doneButton}
+                onPress={handleSubmit}
+              >
+                <Text style={styles.doneButtonText}>Done</Text>
+              </TouchableOpacity>
+            )} */}
+
+            {/* <TouchableOpacity
+              style={[
+                styles.doneButton,
+                !selectedItems && styles.disabledButton,
+              ]}
+              onPress={selectedItems && handleSubmit}
+              disabled={!selectedItems}
+            >
+              <Text style={styles.doneButtonText}>Done</Text>
+            </TouchableOpacity> */}
+
             <TouchableOpacity
-              style={styles.doneButton}
-              onPress={() => router.back()}
+              style={[
+                styles.doneButton,
+                !hasSelectedItems() && styles.disabledButton, // Apply disabled style if not all meals have selections
+              ]}
+              onPress={hasSelectedItems() ? handleSubmit : null} // Only call handleSubmit if all meals have selections
+              disabled={!hasSelectedItems()} // Disable button if all meals don't have selections
             >
               <Text style={styles.doneButtonText}>Done</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </LinearGradient>
+
+      {/* Loading Indicator */}
+      <Spinner
+        visible={loading}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
     </View>
   );
 }
@@ -437,11 +574,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  foodItemContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "50%", // Half-width to show 2 items per row
+    paddingVertical: 5,
+  },
   dishItem: {
     fontSize: 16,
     color: "#fff",
     fontFamily: "poppins-semiBold",
-    marginVertical: 3,
+    marginLeft: 10,
   },
   doneButton: {
     margin: 20,
@@ -455,5 +598,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontFamily: "poppins-semiBold",
+  },
+  disabledButton: {
+    backgroundColor: "#999",
   },
 });
