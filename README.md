@@ -1,54 +1,99 @@
-# Welcome to your Expo app 👋
+# 🍔 Paymess – Food Delivery App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Paymess** is a modern, cross-platform food delivery application built using **React Native** and **Expo**. It offers a seamless user experience for browsing restaurants, selecting dishes, and placing orders, all within a sleek and responsive interface.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
+
+* **Restaurant Listings**: Browse a curated list of restaurants with detailed menus.
+* **Dish Selection**: View and select dishes with descriptions and prices.
+* **Cart Management**: Add, remove, and modify items in your cart with real-time updates.
+* **Order Placement**: Place orders with a streamlined checkout process.
+* **Responsive Design**: Optimized for both Android and iOS devices.
+* **State Management**: Efficient state handling using React hooks and context.
+
+---
+
+## 💠 Technologies Used
+
+* **React Native**: For building the mobile application.
+* **Expo**: To streamline development and testing.
+* **React Navigation**: Handling in-app navigation.
+* **Context API**: Managing global state across components.
+
+---
+
+## 📁 Project Structure
+
+```
+Paymess---Food-Delivery-App/
+├── app/                 # Main application components and screens
+├── assets/              # Images and other static assets
+├── components/          # Reusable UI components
+├── constants/           # Application-wide constants
+├── scripts/             # Utility scripts
+├── .gitattributes
+├── .gitignore
+├── app.json             # Expo configuration
+├── babel.config.js
+├── expo-env.d.ts
+├── package-lock.json
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+---
+
+
+---
+
+## 🧑‍💻 Getting Started
+
+Follow these steps to set up and run the project locally:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/sandipsarode/Paymess---Food-Delivery-App.git
+   cd Paymess---Food-Delivery-App
+   ```
+
+2. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Start the development server:**
 
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. **Run the app:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   * Use the Expo Go app on your Android or iOS device to scan the QR code.
+   * Alternatively, use an emulator or simulator on your development machine.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 📄 License
 
-When you're ready, run:
+This project is licensed under the [MIT License](LICENSE).
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🤝 Contributing
 
-## Learn more
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📬 Contact
 
-## Join the community
+For any inquiries or feedback, please reach out to \[[sandiipssarode@gmail.com](mailto:sandiipssarode@gmail.com)].
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# Food-Delivery-Mobile-App
-
-✅ Contributed by @sandipsarode
+---
 
